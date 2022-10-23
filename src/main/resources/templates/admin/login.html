@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrapValidator.min.css" th:href="@{/bootstrap/css/bootstrapValidator.min.css}">
+</head>
+
+<style>
+    body {
+        background: radial-gradient(200% 100% at bottom center, #29000c, #12102c, #513159, #1b2947);
+        background: radial-gradient(220% 105% at top center, #1b2947 10%, #231039 40%, #51282f 65%, #060f2c);
+        background-attachment: fixed;
+        overflow: hidden;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+        }
+        100% {
+            transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+        }
+    }
+    .stars {
+        transform: perspective(500px);
+        transform-style: preserve-3d;
+        position: absolute;
+        bottom: 0;
+        perspective-origin: 50% 100%;
+        left: 50%;
+        animation: rotate 90s infinite linear;
+    }
+
+    .star {
+        width: 2px;
+        height: 2px;
+        background: #F7F7B6;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: 0 0 -300px;
+        transform: translate3d(0, 0, -300px);
+        backface-visibility: hidden;
+    }
+    .table{
+        width: 400px;
+        height: 350px;
+        margin: 80px auto;
+    }
+    .table form{
+        width: 100%;
+    }
+    .table .name{
+        width: 280px;
+        margin: 20px auto 30px auto;
+        display: block;
+        height: 30px;
+        border-radius: 20px;
+        border: none;
+        background: rgba(0,0,0,0.2);
+        text-indent: 0.5em;
+    }
+    .table .btn{
+        width: 100px;
+        height: 30px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
+        border: none;
+        color: white;
+        margin: 0 auto;
+        display: block;
+    }
+
+    button {
+        outline: none!important;
+    }
+
+</style>
+
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container lucency-xs animated fadeInDownBig">
+
+    <div class="row">
+       <div class="col-sm-6 col-sm-offset-3  col-md-4 col-md-offset-4" >
+           <form id="loginform" role="form" action="/user/login" th:action="@{/admin/login}" method="post">
+              <div class="panel panel-info rounded-size-sm">
+                  <div class="panel-heading text-center rounded-size-sm-top">
+                      <h2>登录<small>login</small></h2>
+                  </div>
+                  <div class="panel-body">
+                      <div class="form-group">
+                          <label for="username_text">用户名</label>
+                          <input type="text" class="form-control" name="username" id="username_text" placeholder="用户名...">
+                      </div>
+                      <div class="form-group">
+                          <label for="password_text">密码</label>
+                          <input type="password" class="form-control" name="password" id="password_text" placeholder="密码...">
+                      </div>
+
+                      <div class="checkbox">
+                          <label class="label text-color-black">
+                              <input type="checkbox" id="remember" name="rememberUser">记住我
+                          </label>
+                      </div>
+
+                         <input type="button" onclick="submitForm();" id="form_btn_login" class="outline-none btn btn-success btn-group-justified" value="提交"><br>
+
+                  </div>
+              </div>
+           </form>
+       </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3  col-md-4 col-md-offset-4" >
+            <div class="alert alert-danger" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+<!--初始化表单-->
+<script>
+
+    var blogusername = localStorage.getItem("blogusername");
+    var blogpassword = localStorage.getItem("blogpassword");
+
+    if (blogusername != null || blogpassword != null){
+        $("#username_text").val(blogusername);
+        $("#password_text").val(blogpassword);
+        $("#remember").prop("checked",true);
+    }
+
+</script>
+
+<script>
+    
+    //提交表单
+    function submitForm(){
+        var ifchoose = $("#remember").prop("checked");
+        var username = $("#username_text").val();
+        var password = $("#password_text").val();
+        if (ifchoose && username != "" && password != ""){
+            localStorage.setItem("blogusername",username);
+            localStorage.setItem("blogpassword",password);
+        }else{
+            localStorage.setItem("blogusername","");
+            localStorage.setItem("blogpassword","");
+        }
+
+        var loginBtn = $("#form_btn_login");
+        loginBtn.attr("type","submit");
+        loginBtn.click();
+    }
+
+
+    $(function () {
+        $('form').bootstrapValidator({
+
+            message: '错误!!',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<!--背景层-->
+<div class="stars"></div>
+<script>
+    $(document).ready(function(){
+        var stars=1000;  /*星星的密集程度，数字越大越多*/
+        var $stars=$(".stars");
+        var r=1000;   /*星星的看起来的距离,值越大越远*/
+        for(var i=0;i<stars;i++){
+            var $star=$("<div/>").addClass("star");
+            $stars.append($star);
+        }
+        $(".star").each(function(){
+            var cur=$(this);
+            var s=0.2+(Math.random()*1);
+            var curR=r+(Math.random()*300);
+            cur.css({
+                transformOrigin:"0 0 "+curR+"px",
+                transform:" translate3d(0,0,-"+curR+"px) rotateY("+(Math.random()*360)+"deg) rotateX("+(Math.random()*-50)+"deg) scale("+s+","+s+")"
+
+            })
+        })
+    })
+</script>
+
+</body>
+</html>

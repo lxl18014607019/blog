@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>留言板</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    /*.div-background-blog{
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        height: 50%;
+        display: block;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        margin: 0px 0px;
+        padding: 0px 0px;
+    }*/
+
+    body {
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: 0px 0px;
+        padding: 0px 0px;
+        background-color: #dddddd;
+    }
+
+    hr {
+        height: 1px;
+        background-color: #bbbbbb;
+        border: none;
+    }
+
+    /* body{
+         background-image: url("http://pic.netbian.com/uploads/allimg/200216/174956-15818465964a15.jpg");
+     }*/
+
+    #comment {
+        background-color: rgba(0, 0, 0, 0.3);
+        -webkit-filter: blur(20px);
+        -moz-filter: blur(2px);
+        -ms-filter: blur(2px);
+        -o-filter: blur(2px);
+        filter: blur(2px);
+    }
+
+    .about-margin-top-adjustment {
+        margin-top: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .about-margin-top-adjustment {
+            margin-top: 20px;
+        }
+    }
+
+    .form-control {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
+
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(5)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}"><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-tag"></sapn>
+                    分类</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-align-left"></sapn>
+                    标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" id="searchFormId" th:action="@{/search}" method="post"
+                          role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="articletitleId" name="articletitle"
+                                   placeholder="搜索文章...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="subsearchForm();">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container animated fadeInUpBig">
+
+    <div class="row about-margin-top-adjustment">
+
+        <div class="col-md-12">
+            <div class="panel lucency-only-box-sm">
+
+                <!--panel-heading-->
+                <div class="panel-heading" id="messageb">
+                    <h1 class="text-center font-HUAWENXINWEI">留言板</h1>
+                </div>
+                <!--panel-body-->
+                <div class="panel-body">
+
+                    <!--留言-->
+                    <div>
+                        <!--评论标题-->
+                        <h3>留言</h3>
+                        <hr>
+                        <div id="commentContainer">
+
+                            <div th:fragment="messageboard">
+                                <!--评论内容-->
+                                <ul class="media-list">
+                                    <div th:each="message : ${messageboards}">
+                                        <div class="media">
+                                            <!--头像区域-->
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img th:if="${message.admin == false}"
+                                                         class="img-size-40 img-circle"
+                                                         src="../static/images/avatar/boy.png"
+                                                         th:src="${message.avatar}">
+                                                    <img th:if="${message.admin == true}" class="img-size-40 img-circle"
+                                                         src="../static/images/avatar/avatar2.jpg"
+                                                         th:src="${user.avatar}">
+                                                </a>
+                                            </div>
+                                            <!--评论区域-->
+                                            <div class="media-body">
+                                                <!--昵称-->
+                                                <h5 class="media-heading"><b th:text="${message.nickName}">任一</b>
+                                                    <label th:if="${message.admin == true}"
+                                                           class="label label-info">管理员</label>
+                                                </h5>
+                                                <!--评论信息-->
+                                                <span class="font-size-sm" th:utext="${message.content}">
+                                                        评论信息...
+                                                </span>
+                                                <!--创评论建时间-->
+                                                <span class="text-color-teal" th:text="${message.createTime}"></span>
+                                                <!--回复按钮-->
+                                                <a href="javascript:void(0);" onclick="replyComment(this)"
+                                                   th:attr="data-parent=${message.id},data-nickname=${message.nickName}">回复</a>
+                                                <!--子评论-->
+                                                <ul class="media" th:if="${message.getSonMessage().size() > 0}"
+                                                    th:each="son : ${message.getSonMessage()}">
+                                                    <!--子评论头像区域-->
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img th:if="${son.admin == false}"
+                                                                 class="img-size-40 img-circle"
+                                                                 src="../static/images/avatar/boy.png"
+                                                                 th:src="${son.avatar}">
+                                                            <img th:if="${son.admin == true}"
+                                                                 class="img-size-40 img-circle"
+                                                                 src="../static/images/avatar/avatar2.jpg"
+                                                                 th:src="${user.avatar}">
+                                                        </a>
+                                                    </div>
+                                                    <!--子评论内容区域-->
+                                                    <div class="media-body">
+                                                        <h5 class="media-heading"><b th:text="${son.nickName}">任一</b>
+                                                            <label th:if="${son.admin == true}"
+                                                                   class="label label-info">管理员</label>
+                                                            <span class="text-color-teal"
+                                                                  th:text="|@${son.parentMessage.nickName}|"></span>
+                                                        </h5>
+
+                                                           <span  class="font-size-sm" th:utext="${son.content}">
+                                                                评论信息...
+                                                            </span>
+
+                                                        <span class="text-color-teal"
+                                                              th:text="${son.createTime}"></span>
+                                                        <a href="javascript:void(0);" onclick="replyComment(this)"
+                                                           th:attr="data-parent=${son.id},data-nickname=${son.nickName}">回复</a>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-width-90">
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--panel-footer-->
+                <div class="panel-footer lucency-only-box">
+                    <div class="well lucency-only-box-lg" style="box-shadow: 0 1px 10px 1px #e0e0e0; border-radius: 10px">
+                        <div class="form">
+                            <!--父id-->
+                            <input type="hidden" id="parentId" name="parentid">
+                            <!--输入评论区域-->
+                            <textarea class="form-control lucency-only-box-lg" name="content" id="content" cols="50"
+                                      rows="10" placeholder="请输入留言,支持Markdown语法..." style="resize: none; resize: none; border: none; border-bottom: 2px solid deepskyblue;"></textarea>
+                            <br>
+                            <div class="form-inline lucency-only-box-all">
+                                <input type="email" id="email"
+                                       class="form-control text-width-120 lucency-only-box-lg margin-bottom-xs" name="email"
+                                       placeholder="邮箱x@x.com (可空)..." style="resize: none; border: none; border-bottom: 2px solid deepskyblue;">
+                                <input type="text" id="nickname"
+                                       class="form-control text-width-120 lucency-only-box-lg margin-bottom-xs"
+                                       name="nickname" placeholder="请输入昵称..." style="resize: none; border: none; border-bottom: 2px solid deepskyblue;">
+                                <input type="text" id="avatar"
+                                       class="form-control text-width-120 lucency-only-box-lg margin-bottom-xs"
+                                       name="avatar" placeholder="引用头像url(可空)..." style="resize: none; border: none; border-bottom: 2px solid deepskyblue;">
+                                <button type="button" id="subMessageBtn" class="btn btn-success margin-bottom-xs">
+                                    <span class="glyphicon glyphicon-hand-up"></span> 发布评论
+                                </button>
+                                <button type="button" id="cancleCommentBtn" onclick="cancelReply();"
+                                        class="btn btn-default margin-bottom-xs" style="display: none">
+                                    <span class="glyphicon glyphicon-remove"></span> 取消回复
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a href="javascript:void(0);" onclick="gotoTop();" class="btn btn-info">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+
+<!--script-->
+<th:block>
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <!--<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>-->
+
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <script src="../static/js/smoothscroll.js" th:src="@{/js/smoothscroll.js}"></script>
+    <script src="../static/js/animatext.min.js" th:src="@{/js/animatext.min.js}"></script>
+    <!--<script src="../static/js/ribbon.min.js" th:src="@{/js/ribbon.min.js}"></script>-->
+    <script src="../static/js/APlayer.min.js" th:src="@{/js/APlayer.min.js}"></script>
+    <script src="../static/js/viewer.min.js" th:src="@{/js/viewer.min.js}"></script>
+    <script src="../static/js/timeline/jquery.eeyellow.Timeline.js" th:src="@{/js/timeline/jquery.eeyellow.Timeline.js}"></script>
+</th:block>
+
+<!--<script src="../static/js/ribbon.min.js" th:src="@{/js/ribbon.min.js}"></script>-->
+
+<script>
+    $("#subMessageBtn").click(checkForm);
+
+    function checkForm() {
+        var email = $("#email");
+        var nickname = $("#nickname");
+        var content = $("#content");
+
+        /*邮箱正则*/
+        var emailreg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+
+        if (content.val() == "") {
+            content.prop("placeholder", "请输入评论信息...");
+            content.focus()
+        } else if (nickname.val() == "") {
+            nickname.prop("placeholder", "请输入昵称...");
+            nickname.focus();
+        }/*else if (email.val() == ""){
+            email.prop("placeholder","请输入邮箱...");
+            email.focus();
+        }*/ else if (email.val() != "" && !emailreg.test(email.val())) {
+            email.focus();
+            email.val("")
+            email.prop("placeholder", "请输入正确的邮箱...");
+        } else
+        //$("#submitCommentForm").submit();
+        //ajax提交请求
+            submitCommentPost();
+    }
+
+    //提交数据
+    function submitCommentPost() {
+        //获取数据
+        $("#commentContainer").load("/addmessage", {
+                "content": $("[name='content']").val(),
+                "email": $("[name='email']").val(),
+                "nickname": $("[name='nickname']").val(),
+                "parentid": $("[name='parentid']").val(),
+                "avatar": $("[name='avatar']").val()
+            },
+            function (responseTxt, statusTxt, xhr) {
+                if (statusTxt === "success") {
+                    clearCommentContent();
+                    $("#subMessageBtn").attr('disabled',false);
+                    $("#content").prop("placeholder", "留言成功，审核后显示！");
+                }
+            }
+        );
+        $("#subMessageBtn").attr('disabled',true);
+    }
+
+    //置空
+    function clearCommentContent() {
+        $("[name='content']").val("");
+    }
+
+    //回复功能,但是这里如果已经有了回复内容,会直接提交表单,因为调用了checkForm
+    function replyComment(Obj) {
+        checkForm();
+        $("#parentId").val($(Obj).data("parent"));
+        $("#content").prop("placeholder", "@" + $(Obj).data("nickname"));
+        //取消回复按钮可见
+        $("#cancleCommentBtn").show();
+    }
+
+    //取消回复
+    function cancelReply() {
+        $("#parentId").val("");
+        $("#content").prop("placeholder", "");
+        //隐藏当前按钮
+        $("#cancleCommentBtn").hide();
+        checkForm();
+    }
+</script>
+
+
+<script>
+    /*平滑滚动*/
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+</script>
+
+<script th:inline="javascript" type="text/javascript">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]];
+    //设置背景图片
+    //document.getElementById("body").style.backgroundImage="url(" + url + ")";
+    $("body").css("backgroundImage", "url('" + url + "')")
+
+</script>
+
+<script>
+
+    function subsearchForm() {
+        //拿到搜索文本框内容
+        var articleobject = $("#articletitleId");
+        if (articleobject.val() == "" || articleobject.val() == null) {
+            articleobject.prop("placeholder", "搜索内容不能为空!");
+            articleobject.focus();
+        } else {
+            //提交表单
+            $("#searchFormId").submit();
+        }
+    }
+</script>
+
+<script>
+
+    function getCode() {
+        var code = document.getElementById("code-input").value;
+        if (code != '' && code != null) {
+            // $("#code-form").submit();
+            //发送ajax请求
+            $.post("/projects/code",{"code" : code},codeBack,"text");
+        } else {
+            alert("请输入验证码!")
+        }
+    }
+    
+    // code刷新函数
+    function codeBack(obj) {
+        // 如果成功
+        if (obj==="success") {
+            $("#code-form").submit();
+        }else {
+            alert(obj)
+        }
+    }
+
+</script>
+
+<script>
+
+    //滚动监听
+    var waypoint = new Waypoint({
+        element: document.getElementById('messageb'),
+        handler: function(direction) {
+            if (direction == 'down') {
+                $('#toolbar').show(500);
+            } else {
+                $('#toolbar').hide(500);
+            }
+            //console.log('Scrolled to waypoint!  ' + direction);
+        }
+    })
+
+    function gotoTop() {
+        var scroll_offset = $("body").offset(); //得到pos这个div层的offset，包含两个值，top和left
+        $("body,html").animate({
+            scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+        },0);
+        return false;
+    }
+
+</script>
+
+</body>
+</html>

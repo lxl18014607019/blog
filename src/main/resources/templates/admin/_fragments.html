@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">首页</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+    <link rel="stylesheet" href="../static/lib/editormd/css/editormd.css" th:href="@{/lib/editormd/css/editormd.css}">
+    <link rel="Shortcut Icon" href="../static/images/avatar.jpg" th:href="@{/images/avatar.jpg}" type="image/x-icon"/>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-select.min.css}" href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="../static/css/viewer.min.css" th:href="@{/css/viewer.min.css}">
+
+
+</head>
+
+
+<body>
+
+<!--导航-->
+<nav th:fragment="menu(n)" class="navbar navbar-inverse lucency-box-black rounded-no lucency-sm" style="background-color: #535353;border: none;">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><img class="img-circle" src="../static/images/avatar/avatar.jpg" th:src="${#session.getAttribute('user').avatar}" style="width: 25px; height: 25px;"></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li th:classappend="${n==1} ? 'active'"><a href="#" th:href="@{/admin/index}"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li th:classappend="${n==2} ? 'active'"><a href="#" th:href="@{/admin/blogs}"><span class="glyphicon glyphicon-list-alt"></span> 文章</a></li>
+                <li th:classappend="${n==3} ? 'active'"><a href="#" th:href="@{/admin/typespage}"><sapn class="glyphicon glyphicon-leaf"></sapn> 分类</a></li>
+<!--                <li th:classappend="${n==3} ? 'active'"><a href="#" th:href="@{/admin/tags}"><sapn class="glyphicon glyphicon-tags"></sapn> 标签</a></li>-->
+                <li th:classappend="${n==4} ? 'active'"><a href="#" th:href="@{/admin/recyclebin}"><sapn class="glyphicon glyphicon-trash"></sapn> 回收站</a></li>
+                <li th:classappend="${n==5} ? 'active'"><a href="#" th:href="@{/admin/background}"><span class="glyphicon glyphicon-th-list"></span> 背景</a></li>
+                <li th:classappend="${n==6} ? 'active'"><a href="#" th:href="@{/admin/blog/sortadmin}"><span class="glyphicon glyphicon-align-left"></span> 文章排序</a></li>
+            </ul>
+
+            <!--更多操作-->
+            <ul class="nav navbar-nav">
+                <li class="dropdown "  style="overflow:visible!important;">
+                    <a href="javascript:void(0);" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-collapse-down"></span>
+
+                        <span>更多</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu" style="z-index: 999999!important;">
+                        <li><a href="#" th:href="@{/admin/messages}"  role="menuitem">留言管理</a></li>
+                        <li><a href="#" th:href="@{/admin/comments}"  role="menuitem">评论管理</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" th:href="@{/admin/friend/friends}"  role="menuitem">友链授权</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <!--管理员下拉列表-->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="javascript:void(0);" data-toggle="dropdown">
+                        <!--头像-->
+                        <img class="img-size-least img-circle" src="../static/images/avatar/avatar.jpg" th:src="${#session.getAttribute('user').avatar}">
+                        <!--nickname-->
+                        <span th:text="${#session.getAttribute('user').nickName}">hello</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li role="presentation" class="dropdown-header">登录操作</li>
+                        <li><a href="#" th:href="@{/admin/logout}"  role="menuitem"><span class="glyphicon glyphicon-remove"></span> 注销</a></li>
+                        <!--分割线-->
+                        <li class="divider"></li>
+                        <li role="presentation" class="dropdown-header">用户操作</li>
+                        <li><a href="http://www.blogry.cn" th:href="@{/admin/editouser}" role="menuitem"> <span class="glyphicon glyphicon-pencil"></span> 编辑信息</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<!--底部-->
+<div th:fragment="footer" class="container-fluid animated fadeIn z-index--2 lucency-md" style="background-color: #aaaaaa">
+    <div class="panel footer lucency-sm margin-none">
+        <div class="container">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" class="img-square img-rounded">
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h4 class="font-YOUYUAN text-color-white">友情连接</h4>
+                        <p><a class="a-color-aaa" href="https://glyphicons.com/" th:href="@{https://glyphicons.com/}" target="_blank">glyphicons字体图标</a></p>
+                        <p><a class="a-color-aaa" href="#">虚位以待</a></p>
+                        <p><a class="a-color-aaa" href="#">虚位以待</a></p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h4 class="font-YOUYUAN text-color-white">联系我</h4>
+                        <p>QQ：2822930767</p>
+                        <p>Email：2822930767@qq.com</p>
+                        <p>公众号：创美软件开发工作室</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <h4 class="font-YOUYUAN text-color-white">博客</h4>
+                        <p>这是我的技术博客，我会在这里向大家分享我的编程、写作、学习的相关内容，如果能给大家带来帮助，本人不胜荣幸，如有错误，欢迎指正！</p>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <div class="row text-center">
+                    <p>Copyright@ 2020-2021 chuangmei</p>
+                    <p><a href="#" class="a-color-aaa">蜀ICP备20015423号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--script-->
+<th:block th:fragment="script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <script src="../static/js/smoothscroll.js" th:src="@{/js/smoothscroll.js}"></script>
+    <script src="../../static/bootstrap/js/bootstrapValidator.min.js" th:src="@{/bootstrap/js/bootstrapValidator.min.js}"></script>
+    <script src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js" th:src="@{/js/bootstrap-select.min.js}"></script>
+    <script src="../../static/js/defaults-zh_CN.min.js" th:src="@{/js/defaults-zh_CN.min.js}"></script>
+    <script src="../../static/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+    <script src="../static/js/viewer.min.js" th:src="@{/js/viewer.min.js}"></script>
+    <script src="../static/js/viewer.min.js" th:src="@{/myJS/batchOperation.js}"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
+    <script>
+        /*平滑滚动*/
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+        });
+
+
+        //滚动监听
+        var waypoint = new Waypoint({
+            element: document.getElementById('top'),
+            handler: function(direction) {
+                if (direction == 'down') {
+                    $('#toolbar').show(500);
+                } else {
+                    $('#toolbar').hide(500);
+                }
+                //console.log('Scrolled to waypoint!  ' + direction);
+            }
+        })
+
+        function gotoTop() {
+            var scroll_offset = $("body").offset(); //得到pos这个div层的offset，包含两个值，top和left
+            $("body,html").animate({
+                scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+            },0);
+            return false;
+        }
+    </script>
+
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+@charset "UTF-8";
+body{
+    margin: 0px;
+    padding: 0px;
+    background-size: 100%;
+    background-attachment:fixed;
+    background-size: cover;
+    /*background-image: url("img/3.jpg");*/
+    /*background-image: url("http://s.cn.bing.net/az/hprichbg/rb/BomboHeadland_ZH-CN9339065341_1920x1080.jpg");*/
+
+}
+
+a{
+    /* 禁止各浏览器标签的选中功能 */
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+img{
+    /* 禁止各浏览器标签的选中功能 */
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+h1{
+    /* 禁止各浏览器标签的选中功能 */
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+p{
+    /* 禁止各浏览器标签的选中功能 */
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select:none;
+    -khtml-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+a:hover{
+    color: antiquewhite;
+}
+
+
+
+input{outline:none}
+
+.now{
+    font-family: "微软雅黑";
+    font-size: 80px;
+    color: white;
+    text-shadow:2px 2px 5px #A9A9A9;
+    text-align: center;
+    position: relative;
+    top: 100px;
+}
+
+#search{
+    text-align: center;
+    margin-top: 200px;
+}
+
+#search_text:focus{
+    border-radius: 4px;
+    transform: translateY(-75px);
+    opacity: 1;
+    transition: 0.5s;
+}
+
+
+
+#search_text{
+    border: none;
+    height: 40px;
+    width: 500px;
+    border-radius: 4px;
+    box-shadow:0px 0px  10px 5px #aaa;
+    color: #969696;
+    text-align: left;
+    font-size: 17px;
+    padding-left: 15px;
+    padding-right: 10px;
+    transition: 0.75s;
+}
+
+#search_baidu{
+    font-family: "STXihei";
+    font-size: 35px;
+    color: lavenderblush;
+    text-shadow: 5px 5px 15px black;
+}
+
+/* 头像圆角化 */
+#touxiang_img{
+
+    border-radius: 20px;
+    top: 20px;
+    right: 150px;
+
+}
+
+
+#login{
+    position:absolute;
+    top:20px;
+    z-index:999;
+    border-radius: 10px;
+
+}
+
+#login_1{
+    position:absolute;
+    right: 10px;
+    top: 35px;
+    z-index:999;
+    border-radius: 10px;
+
+}
+
+.login_register{
+    position:relative;
+    top:-15px;
+    font-size:20px;
+    font-family: "STXihei";
+    color: white;
+    text-decoration: none;
+    line-height: 25px;
+    text-shadow: 0px 0px 5px black;
+    padding-left: 0px;
+    text-align: center;
+}
+
+#clear{
+    height: 30px;
+    width: 30px;
+    color: #969696;
+    font-size: 40px;
+    font-family: 微软雅黑;
+    position: absolute;
+
+}
+
+/*自定义标签主要*/
+.DIY_tab{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-color: #969696;
+    margin: auto;
+    top: 50px;
+    text-align:center
+}
+
+/*自定义标签*/
+.DIY_tab_son{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    background-color: #eeeeee;
+    position: relative;
+    margin: auto;
+    display:inline
+}
+
+/*username编辑框*/
+#username{
+    width: 100px;
+    height: 25px;
+    outline: none;
+    border-radius: 20px;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    opacity: 0.6;
+    box-shadow: black 0px 0px 1px;
+}
+
+
+#usernameBut{
+    position: fixed;
+    top: 43px;
+    background-color: #A9A9A9;
+    width: 50px;
+    height: 25px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    transition: background-color 0.5s;
+    opacity: 0.6;
+}
+#usernameBut:hover{
+    background-color: white;
+    transition: background-color 0.5s;
+}
+
+#backgrounImg{
+    width: 100%;
+    height: 100%;
+}

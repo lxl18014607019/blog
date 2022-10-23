@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .date-margin {
+        margin-top: -12px;
+    }
+
+    a:focus {
+        text-decoration: none
+    }
+
+    a:hover {
+        text-decoration: none
+    }
+
+    .disab {
+        display: inline;
+    }
+
+    .footer {
+        background-color: #2e383c;
+        border: none;
+        color: #aaaaaa;
+    }
+
+    .border-color {
+        border-color: teal;
+    }
+
+    .nature {
+        border: none;
+        background-color: #83eeff;
+        z-index: 1;
+        color: #0086b3;
+    }
+    @media (max-width: 768px) {
+        .nature {
+            border: none;
+            background-color: #83eeff;
+            z-index: 1;
+            color: #0086b3;
+            display: none;
+        }
+    }
+
+    .nature-good {
+        border: none;
+        background-color: #fef0b4 !important;
+        z-index: 1;
+        color: #91902f;
+    }
+
+    .firstpicture-index {
+        width: 100%;
+        z-index: -1;
+        position: absolute;
+        top: 0px;
+        height: 500px;
+    }
+
+    .recommendImg {
+        width: 1200px;
+        height: 200px;
+    }
+
+    .blog-size-img {
+        height: 180px;
+    }
+
+    .player {
+        background-color: gainsboro;
+    }
+
+    .recommend-content {
+        max-height: 275px;
+        overflow: hidden;
+        overflow-x: hidden;
+        transition: 0.75s !important;
+        border-radius: 0 0 10px 10px !important;
+    }
+
+    .right-shadow {
+        box-shadow: 0px 1px 10px 1px #e8e8e8;
+        border-radius: 10px;
+    }
+
+    .list-group-item {
+        border: none;
+    }
+
+    .recommend-content:hover {
+        overflow: scroll;
+        overflow-x: hidden;
+        transition: 0.75s !important;
+    }
+
+    .list-fade-in {
+        /*background-color: white !important;*/
+        transition: 0.2s !important;
+    }
+
+    .list-fade-in:hover {
+        background-color: #cdcdcd !important;
+        transition: 0.2s !important;
+    }
+
+    .extend-btn {
+        background-color: #e5e5eb;
+    }
+
+    .extend-btn:hover {
+        background-color: #bbbbbb;
+    }
+
+    .recommend {
+        border-radius: 10px;
+    }
+
+    .list-group > p {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .des-well {
+        border-radius: 10px;
+    }
+
+    .aplayer {
+        border-radius: 10px !important;
+    }
+
+    .container .jumbotron, .container-fluid .jumbotron {
+        border-radius: 10px;
+    }
+
+    .border-radius-10 {
+        border-radius: 8px;
+    }
+
+    /*.index-right-sticky {*/
+    /*position: sticky;*/
+    /*top: 0;*/
+    /*}*/
+
+    .otherItem {
+        margin-bottom: 20px;
+    }
+
+    .otherItem-description {
+        height: 30px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        background: rgba(80, 80, 80, 0.5) !important;
+        color: #ffffff;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .otherItem-description > p {
+        line-height: 30px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .otherItem-img {
+        width: 100%;
+        height: 115px;
+        border-radius: 5px !important;
+    }
+
+    .me-bcr {
+        background: url("https://img-blog.csdnimg.cn/725651e6fccd46f083800b3998022305.jpeg") no-repeat;
+        background-size: 100% 100%;
+    }
+
+</style>
+
+<style>
+    .sjbdmap {
+        display: inline;
+    }
+
+    @media (max-width: 768px) {
+        .sjbdmap {
+            display: none !important;
+        }
+
+        .pcbdmap {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .pcbdmap {
+                display: inline;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .margin-rl-phone {
+            margin-left: 10px;
+            margin-right: 10px
+        }
+    }
+
+    @media (max-width: 768px) {
+        .pageing-number {
+            display: none;
+        }
+    }
+
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(1)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}"><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-tag"></sapn>
+                    分类</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-align-left"></sapn>
+                    标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层-->
+<div th:replace="_fragments :: first"></div>
+
+<br>
+<br>
+
+<!--内容区域-->
+<div class="container" id="contentId" style="height: 100%!important;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-heading">
+                <!--全部文章-->
+                <h2 id="allArticleTitle" class="text-color-teal font-FANGZHENGSHUTI">全部文章
+                    <small class="text-color-teal"> 共
+                        <sapn th:text="${pager.getTotalPage()}">14</sapn>
+                        篇
+                    </small>
+                </h2>
+            </div>
+            <!--内容区域-->
+            <div class="row">
+                <!--文章展示区域-->
+                <div class="col-md-10">
+                    <div id="panelbodyFlush" th:fragment="panelbodyContent">
+                        <div class="lucency-only-box-all" th:each="blog,iterStat : ${blogs}">
+
+                            <div class="row">
+                                <div class="is-position-abslute box-size-sm box-border-radius-circle nature text-center"
+                                     th:classappend="${blog.nature} == '优选' ? 'nature-good' : ''">
+                                    <br>
+                                    <b><span th:text="${iterStat.count}">1.</span>.<span
+                                            th:text="${blog.nature}"></span></b>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="jumbotron box-background-color right-shadow">
+
+                                <div class="row">
+
+                                    <!--图片区域-->
+                                    <div class="col-md-5 text-center margin-top blog-size-img">
+                                        <a target="_blank" href="#" th:href="@{/blogs/{id}(id=${blog.getId()})}">
+                                            <img class="img-size-100 border-radius-10 mouseEnter-scale"
+                                                 src="../static/images/background/bg02.jpg"
+                                                 th:src="${blog.getFirstPicture()}">
+                                        </a>
+                                    </div>
+                                    <!--内容区域-->
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <!--内容-->
+                                            <div class="col-md-12">
+                                                <a target="_blank" th:href="@{/blogs/{id}(id=${blog.getId()})}"
+                                                   href="#"><h3 class="font-PF" th:utext="${blog.getTitle()}">
+                                                    Java语言的优点</h3></a>
+                                                <span style="line-height: 25px" class="blog-index-description font-PF font-size-sm"
+                                                      th:utext="${blog.getDescription()}">Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。Java语言作为静态面向对...</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <!--日期-->
+                                        <div class="row">
+                                            <!--作者信息-->
+                                            <div class="col-md-4 col-xs-2 author-inof">
+                                                <img src="../static/images/avatar/avatar.jpg" th:src="${user.avatar}"
+                                                     class="img-size-xxs img-circle">
+                                                <a class="author-inof-me sjbdmap pcbdmap" href="#"
+                                                   th:href="@{/about}"><span th:text="${user.nickName}">任一</span></a>
+                                            </div>
+                                            <br>
+                                            <!--更新日期-->
+                                            <div class="col-md-5 col-xs-5 date-margin index-blog-date">
+                                                <span class="glyphicon glyphicon-bookmark text-color-teal"></span>
+                                                <span th:text="${blog.createTime}"> 2001-05-02</span>
+                                            </div>
+                                            <!--类型-->
+                                            <div class="col-md-3 col-xs-5 date-margin index-blog-info">
+                                                <!--<a href="#" th:href="|@{/types}?id=${blog.getType().id}|" class="btn btn-default btn-xs lucency-only-box-all text-color-teal border-color">
+                                                    <span th:text="${blog.getType().getName()}"></span></a>-->
+                                                <a href="#" th:href="|@{/types}?id=${blog.getType().id}|"
+                                                   class=" btn-default btn-sm extend-btn">
+                                                    <span class="font-size-xs" style="font-size: 14px;"
+                                                          th:text="${blog.getType().name}">Java</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<hr>-->
+                        </div>
+
+
+                        <!--不渲染此区域-->
+                        <!--/*-->
+                        <div class="lucency-only-box-all">
+                            <div class="jumbotron lucency-only-box-sm mouseEnter">
+                                <div class="row">
+                                    <!--图片区域-->
+                                    <div class="col-md-5 text-center">
+                                        <a href="#">
+                                            <img class="img-size-lg img-rounded mouseEnter"
+                                                 src="../static/images/background/bg02.jpg"
+                                                 th:src="@{/images/background/bg02.jpg}">
+                                        </a>
+                                    </div>
+                                    <!--内容区域-->
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <!--内容-->
+                                            <div class="col-md-12">
+                                                <a href="#"><h3>Java语言的优点</h3></a>
+                                                <h4 class="font-YOUYUAN">
+                                                    Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。Java语言作为静态面向对...</h4>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <!--日期-->
+                                        <div class="row">
+                                            <!--作者信息-->
+                                            <div class="col-md-4 col-xs-4">
+                                                <img src="../static/images/avatar/avatar.jpg"
+                                                     th:src="@{/images/avatar/avatar.jpg}"
+                                                     class="img-size-xxs img-circle">
+                                                <a class="a-color-teal" href="#"><span>任一</span></a>
+                                            </div>
+                                            <br>
+                                            <!--更新日期-->
+                                            <div class="col-md-5 col-xs-5 date-margin">
+                                                <span class="glyphicon glyphicon-bookmark text-color-teal"></span><span> 2001-05-02</span>
+                                            </div>
+                                            <!--标签-->
+                                            <div class="col-md-3 col-xs-3 date-margin">
+                                                <a href="#"
+                                                   class="btn btn-default btn-xs lucency-only-box-all text-color-teal border-color">Java</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--                       <hr>-->
+                        </div>
+                        <!--*/-->
+
+                        <br>
+                        <!--分页-->
+                        <div class="panel-body paging lucency-only-box-sm border-radius-xs right-shadow">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <!--th:href="|@{/}?stratpage=1|" -->
+                                    <a th:if="${pager.startPage} > 1" onclick="paging(this)"
+                                       th:attr="data-pageStart = 1" style="border-radius: 50px"
+                                       class="btn btn-info">首页</a>
+                                    <!--th:href="|@{/}?startPage=${pager.getPageQuantity()}|"-->
+                                    <a th:if="${pager.getPageQuantity()} > ${pager.startPage}" onclick="paging(this)"
+                                       th:attr="data-pageStart = ${pager.getPageQuantity()}" style="border-radius: 50px"
+                                       class="btn btn-info">尾页</a>
+                                </div>
+                                <div class="col-md-6 col-sm-6 pageing-number">
+                                    <nav class="text-center">
+                                        <button onclick="paging(this)" th:attr="data-pageStart = ${page}"
+                                                th:each="page : ${pager.pages}" class="btn btn-sm btn-info"
+                                                th:text="${page}" style="margin: 0 5px; width: 36px;"></button>
+                                    </nav>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 text-right">
+                                    <!--th:href="|@{/}?startPage=${pager.startPage - 1}|"-->
+                                    <a th:if="${pager.startPage - 1} >= 1" onclick="paging(this)" class="btn btn-info"
+                                       style="border-radius: 50px"
+                                       th:attr="data-pageStart=${pager.startPage - 1}">&lt;</a>
+                                    <!--th:href="|@{/}?startPage=${pager.startPage + 1}|" -->
+                                    <a th:if="${pager.startPage + 1} <= ${pager.getPageQuantity()} and ${pager.getPageQuantity()} != 0"
+                                       onclick="paging(this)" class="btn btn-info" style="border-radius: 50px"
+                                       th:attr="data-pageStart = ${pager.startPage + 1}">&gt;</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">
+                            <label class="label label-info font-HUAWENXINWEI">
+                                <span th:text="${pager.startPage}"></span>
+                                /
+                                <span id="quantityspan" th:text="${pager.getPageQuantity()}"></span>
+                            </label>
+                        </p>
+                        <p class="text-right">
+                            <input id="mepagestart" placeholder="页数" class="form-control text-center" type="text"
+                                   style="border-radius: 50px; width: 60px;display: inline!important;">
+                            <button onclick="sikipPage();" id="skip-btn" class="btn btn-default"
+                                    style="margin-bottom: 1px; border-radius: 50px">跳转
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <!--右边区域-->
+                <div class="col-md-2 margin-rl-phone index-right-sticky">
+                    <!--推荐-->
+                    <div class="row recommend" style="font-size: 14px; font-weight: unset">
+                        <div class="right-shadow">
+                            <div class="list-group margin-top">
+                                <p class="list-group-item box-background-color-grey index-recommend">
+                                    <span class="glyphicon glyphicon-bookmark"></span>
+                                    <b>推荐文章</b><span class="badge" th:text="${recommendBlog.size()}"
+                                                     style="background-color: #aaaaaa">42</span>
+                                </p>
+                                <div class="recommend-content">
+                                    <a class="list-group-item list-fade-in" th:if="${recommendBlog.size() > 0}"
+                                       th:href="@{/blogs/{id}(id=${recommend.id})}"
+                                       th:each="recommend,iterStat : ${recommendBlog}">
+                                        <span th:text="|${iterStat.count}.|">1</span>
+                                        <span th:text="${recommend.title}"></span>
+                                    </a>
+                                </div>
+
+                                <p th:if="${recommendBlog.size() == 0}">
+                                    <a class="list-group-item">
+                                        暂无推荐文章
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--分类-->
+                    <div class="row">
+                        <div class="right-shadow">
+                            <div class="list-group margin-top" style="font-size: 14px;">
+                                <p class="list-group-item box-background-color-grey index-types">
+                                    <span class="glyphicon glyphicon-bookmark"></span>
+                                    <b>分类</b><span class="badge" th:text="${types.size()}"
+                                                   style="background-color: #aaaaaa">42</span>
+                                </p>
+                                <div class="recommend-content">
+                                    <a class="list-group-item list-fade-in" th:if="${types.size() > 0}"
+                                       th:href="|@{/types}?id=${type.id}|" th:each="type,iterStat : ${types}">
+                                        <span th:text="|${iterStat.count}.|">1</span>
+                                        <span th:text="${type.name}"></span>
+                                    </a>
+                                </div>
+
+                                <p th:if="${types.size() == 0}">
+                                    <a class="list-group-item">
+                                        暂无分类
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--介绍-->
+                    <div class="row">
+
+                        <div class="me-bcr well des-well right-shadow" style="background-color: white;border: none;">
+                            <div class="text-center">
+                                <div class="row">
+                                    <img src="../static/images/avatar/avatar.jpg" th:src="${user.avatar}"
+                                         class="img-size-xs64 img-circle text-border">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4  col-sm-4 col-md-4" style="margin: 0px">
+                                        <p class="text-center">
+                                        <h5 th:text="${pager.getTotalPage()}">33</h5>
+                                        <h5>文章</h5>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4  col-sm-4 " style="margin: 0px">
+                                        <p class="text-center">
+                                        <h5 th:text="${commentCount}">97</h5>
+                                        <h5>评论</h5>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4  col-sm-4 " style="margin: 0px">
+                                        <p class="text-center">
+                                        <h5 th:text="${recommendBlog.size()}">3333</h5>
+                                        <h5>推荐</h5>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!--更多操作-->
+                    <div class="row">
+                        <div>
+                            <div class="otherItems">
+                                <div class="otherItem"
+                                     style="position: relative; height: 100%; border-radius: 5px;">
+                                    <a href="http://www.blogry.cn/friend">
+                                        <img class="img-size-all otherItem-img"
+                                             src="https://img-blog.csdnimg.cn/215e4c7f087c453ea7945c77e74866b5.jpeg">
+                                        <div class="otherItem-description">
+                                            <p>朋友圈</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="otherItem"
+                                     style="position: relative; height: 100%; border-radius: 5px;">
+                                    <a href="http://www.blogry.cn/code/index" target="_blank">
+                                        <img class="img-size-all otherItem-img"
+                                             src="https://img-blog.csdnimg.cn/1d57d7da10304b57bfc9ffdda2c4c75c.webp">
+                                        <div class="otherItem-description">
+                                            <p>源码获取</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+<!--                    &lt;!&ndash;音乐&ndash;&gt;-->
+<!--                    &lt;!&ndash;<div class="row">&ndash;&gt;-->
+<!--                    &lt;!&ndash;<div class="">&ndash;&gt;-->
+<!--                    &lt;!&ndash;<div id="player1" style="margin-right: 0px;margin-left: 0px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;<pre class="aplayer-lrc-content">&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:00.000] 作曲 : 柏松&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:01.000] 作词 : 尹初七&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:15.854]编曲：彭圣杰&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:28.354]偏偏秉烛夜 游&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:31.354]午夜星辰 似奔走之友&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:34.854]爱你每个结痂伤口&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:37.854]酿成的陈年烈酒&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:41.104]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:42.104]入喉尚算可口&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:45.103]怎么泪水 还偶尔失守&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:48.853]邀你细看心中缺口&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:51.353]裂缝中留存 温柔&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:56.104]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[00:57.853]此时已莺飞草长 爱的人正在路上&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:02.103]我知他风雨兼程 途经日暮不赏&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:05.853]穿越人海 只为与你相拥&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:11.853]此刻已皓月当空 爱的人手捧星光&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:15.603]我知他乘风破浪 去了黑暗一趟&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:19.353]感同身受 给你救赎热 望&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:25.602]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:26.353]知道你不能 还要你感受&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:30.102]让星光加了一点彩虹&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:33.102]让樱花偷偷 吻你额头&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:36.853]让世间美好 与你环环相扣&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:41.603]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:42.352]此时已莺飞草长 爱的人正在路上&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:46.602]我知他风雨兼程 途经日暮不赏&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:50.602]穿越人海 只为与你相拥&ndash;&gt;-->
+<!--                    &lt;!&ndash;[01:56.102]此刻已皓月当空 爱的人手捧星光&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:00.102]我知他乘风破浪 去了黑暗一趟&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:04.352]感同身受 给你救赎热 望&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:09.352]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:09.852]此时已莺飞草长 爱的人正在路上&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:13.851]我知他风雨兼程 途经日暮不赏&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:18.102]穿越人海 只为与你相拥&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:23.602]此刻已皓月当空 爱的人手捧星光&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:27.851]我知他乘风破浪 去了黑暗一趟&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:31.852]感同身受 给你救赎热 望&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:37.352]&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:38.601]知道你不能 还要你感受&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:41.601]让星光加了一点彩虹&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:45.101]当樱花开的纷纷扬扬&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:48.602]当世间美好 与你环环相扣&ndash;&gt;-->
+<!--                    &lt;!&ndash;[02:58.601]特别鸣谢：槿葵，我们的海报制作妹妹。&ndash;&gt;-->
+<!--                    &lt;!&ndash;[03:05.854]原唱：柏松&ndash;&gt;-->
+<!--                    &lt;!&ndash;[03:06.355]吉他：柏松&ndash;&gt;-->
+<!--                    &lt;!&ndash;[03:07.354]和声：柏松&ndash;&gt;-->
+<!--                    &lt;!&ndash;[03:08.104]录音：柏松&ndash;&gt;-->
+<!--                    &lt;!&ndash;[03:09.104]混音：张强&ndash;&gt;-->
+<!--                    &lt;!&ndash;</pre>&ndash;&gt;-->
+<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;</div>&ndash;&gt;-->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a href="javascript:void(0);" onclick="gotoTop();" class="btn btn-info">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js"
+            th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+
+</th:block>
+
+<!--大首图-->
+<script th:replace="_fragment-picture :: firstPicture"></script>
+
+
+<script>
+
+    function sikipPage() {
+        var pageStart = $("#mepagestart").val();
+        var pageQuantity = $("#quantityspan").text();
+        pageStart = parseInt(pageStart);
+        pageQuantity = parseInt(pageQuantity);
+
+        if (pageStart >= 1 && pageStart <= pageQuantity) {
+            gotoPage(pageStart);
+        } else {
+            $("#mepagestart").val("");
+            $("#mepagestart").focus();
+            return;
+        }
+
+    }
+
+    function paging(Obj) {
+
+        //pageStart
+        var pageStart = $(Obj).data("pageStart");
+        /*        history.pushState({'startPage':pageStart},'首页1','/');*/
+        gotoPage(pageStart);
+    }
+
+    function gotoPage(pageStart) {
+
+        //发送请求
+        $("#panelbodyFlush").load(
+            "/paging",
+            {
+                "pageStart": pageStart
+            },
+            function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success") {
+                    var scroll_offset = $("#allArticleTitle").offset(); //得到pos这个div层的offset，包含两个值，top和left
+                    $("body,html").animate({
+                        scrollTop: scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+                    }, 0);
+                    return false;
+                }
+            }
+        );
+    }
+
+</script>
+
+<!--<script>-->
+<!--    var ap = new APlayer-->
+<!--    ({-->
+<!--        element: document.getElementById('player1'),-->
+<!--        narrow: false,-->
+<!--        autoplay: false,-->
+<!--        showlrc: true,-->
+<!--        music: {-->
+<!--            title: '世间美好与你环环相扣',-->
+<!--            author: '柏松',-->
+<!--            url: 'http://music.163.com/song/media/outer/url?id=1363948882.mp3',-->
+<!--            pic: 'http://p2.music.126.net/DK1_4sP_339o5rowMdPXdw==/109951164071024476.jpg?param=300x310'-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+body {
+    background-color: #f4f4f4 !important;
+}
+
+hr {
+    border: none;
+
+    height: 1px;
+
+    background-color: #cfcbcf;
+}
+
+.typo hr {
+    height: 1px!important;
+    background-color: #cfcbcf!important;
+    border-bottom: none !important;
+}
+
+/*博客展示面板*/
+.jumbotron {
+    background-color: #ffffff !important;
+    color: #333;
+}
+
+/*博客展示面板 阴影*/
+.right-shadow {
+    box-shadow: 0px 1px 10px 1px #e8e8e8; !important;
+}
+
+
+/*类型按钮*/
+.index-blog-info .extend-btn {
+    background-color: #e5e5eb;
+    color: #333;
+}
+.index-blog-info .extend-btn:hover {
+    background-color: #bbbbbb;
+    color: #333;
+}
+
+/*个人链接*/
+.author-inof-me {
+    color: #4276a2;
+}
+.author-inof-me:hover {
+    color: #457ead;
+}
+
+/*分页*/
+.paging {
+    background: rgba(237, 253, 255, 0.8) !important;
+}
+
+/*底部*/
+.footer-t{
+    background-color: white !important;
+    color: #333;
+}
+
+/*index页面推荐和分类p标签背景和字体颜色*/
+.index-recommend {
+    background-color: #c1c1c1 !important;
+    color: #333;
+}
+.index-types {
+    background-color: #c1c1c1 !important;
+    color: #333;
+}
+
+/*index页面推荐和分类选项字体和背景颜色*/
+.list-fade-in {
+    background-color: #ffffff !important;
+}
+a.list-group-item {
+    color: #333;
+}
+
+a.list-group-item:hover {
+    background-color: #cecfd1 !important;
+}
+
+/*分类页面右侧面板*/
+.type-me {
+    background-color: #ffffff !important;
+    color: #333;
+}
+
+.type-types {
+    background-color: #ffffff !important;
+}
+
+/*博客内容页面头部*/
+.blog-head {
+    background-color: #ffffff !important;
+    color: #333;
+}
+
+/*博客页面内容部分*/
+.blog-content {
+    background-color: #ffffff !important;
+}
+
+/*博客页面引用*/
+blockquote {
+    background-color: #eeeef4 !important;
+}
+
+.blog-title {
+    color: #333333;
+}
+
+.typo p {
+    /*原颜色*/
+    color: #2d2d2d !important;
+}
+
+.typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6, .typo-h1, .typo-h2, .typo-h3, .typo-h4, .typo-h5, .typo-h6 {
+    color: #000 !important;
+}
+
+.blog-footer {
+    background-color: #f8ffff !important;
+    color: #5a5b5b;
+}
+
+/*博客页面-作者信息*/
+.blog-author-info {
+    background-color: #f8ffff !important;
+    box-shadow: 0 1px 10px 1px #e0e0e0;
+    border: none;
+}
+
+.blog-comment {
+    background-color: #f8ffff !important;
+    box-shadow: 0 1px 10px 1px #e0e0e0;
+    border: none;
+}
+
+.blog-comment-form {
+    background-color: #f8ffff !important;
+    box-shadow: 0 1px 10px 1px #e0e0e0;
+    border: none;
+}
+
+.search-article-input {
+    background-color: #efefef !important;
+    color: #555 !important;
+}
+
+/*.blog-comment-form textarea,input {*/
+    /*background-color: #f8ffff !important;*/
+    /*color: #555;*/
+/*}*/
+
+/*搜索按钮*/
+/*.search-article-btn {*/
+    /*background-color: white !important;*/
+    /*color: #555 !important;*/
+/*}*/
+
+/*.search-article-input {*/
+    /*color: #555 !important;*/
+/*}*/
+
+/*单个代码块*/
+code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+}
+
+/*博客页面加载更多按钮*/
+#loadmoreBtn {
+    background-color: #e3e3e3!important;
+}
+
+
+/*分类页面按钮*/
+.btn-default {
+    color: #736f6f;
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.btn-default:hover {
+    color: #736f6f;
+    background-color: #c2c2c2;
+    border-color: #ccc;
+}
+
+.btn-active {
+    color: #736f6f;
+    background-color: #c2c2c2;
+}
+
+.extend-btn {
+    background-color: #e5e5eb;
+}
+
+.extend-btn:hover {
+    background-color: #d4d4da;
+}
+
+.panel-body-title{
+    color: #4b6c84 !important;
+}
+
+/*选中颜色*/
+/* webkit, opera, IE9 （谷歌浏览器）*/
+::selection {
+    background: #dfecfd;
+    color:#000;
+}
+/* mozilla firefox（火狐浏览器） */
+::-moz-selection {
+    background: #dfecfd;
+    color:#000;
+}

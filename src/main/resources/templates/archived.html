@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>时间线</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .btn-me{
+        color: black;
+        width: 160px;
+        height: 40px;
+        border: 1px solid #c9c9c9;
+        outline: none;
+        transition: 0.75s;
+    }
+
+    .btn-me:hover{
+        background-color: #c0c0c0;
+        color: #000!important;
+        transition: 0.75s;
+    }
+</style>
+
+<style>
+    /*手机端加长小首图*/
+    @media (max-width: 768px){ .div-background-blog{height: 55%;  }}
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(4)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层-->
+<div th:replace="_fragments :: first-small">
+    <div class="div-background animated fadeInUpBig"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center animated zoomInUp">
+                <b><h1 class="text-color-white font-size-title color-title">Sunshine Boy</h1></b>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron lucency-sm box-color-white animated zoomIn">
+                    <div class="row text-center">
+                        <img class="img-size-xs img-circle text-border" src="../static/images/avatar/avatar2.jpg" th:src="@{/images/avatar/avatar2.jpg}">
+                        <div class="row">
+                            <h2 class="color-me">Renyi</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="color-title"> 一个热爱编程的阳光少年,也是一个终身学习者,希望能够汲取更多的知识，充实自己的生活，希望能在编程的道路上越走越远！!</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!--内容区域-->
+    <div class="container-fluid animated fadeInLeft">
+
+        <div class="col-md-8 col-md-offset-2">
+             <div class="timeline timeline-line-dotted" id="contentId">
+                <!--开始-->
+                 <div id="load_timeline_content" th:fragment="time_line" >
+                     <!--用于判断是否加载完毕,这里需要给一个默认值1-->
+                    <input hidden id="ok_timeline" type="text" th:value="${ok}">
+                    <div  class="timeline-item"  th:each="blog : ${blogs}">
+                        <div class="timeline-point timeline-point-success">
+                            <i class="fa fa-money"></i>
+                        </div>
+
+                        <div class="timeline-event">
+                            <div class="timeline-heading">
+                                <a href="#" th:href="@{/blogs/{id}(id=${blog.getId()})}">
+                                    <h4 th:text="${blog.title}">标题</h4>
+                                </a>
+                            </div>
+                            <div class="timeline-body">
+                                <p th:text="${blog.description}">介绍...</p>
+                            </div>
+                            <div class="timeline-footer">
+                                <p class="text-right">
+                               <span class="text-right">
+                                    <span class="label label-success" th:text="${blog.createTime}">2020-05-02</span>
+                                </span>
+
+                                    <a href="#" th:href="|@{/types}?id=${blog.getType().id}|">
+                                        <span class="label label-info" th:text="${blog.type.name}">类型</span>
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                    </div>
+                 </div>
+                <!--结束-->
+            </div>
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<div class="text-center">
+    <input onclick="loadmorearchived();" type="button" value="加载更多" id="loadmoreTimeline" class="btn-me lucency-only-box-all">
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a href="javascript:void(0);" onclick="gotoTop();" class="btn btn-info">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+
+
+<!--底部-->
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+<script>
+    /*平滑滚动*/
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+</script>
+
+<!--加载更多-->
+<script>
+    //判断是否加载完毕
+    var ok = 1;
+    //page
+    var page = 1;
+    var remind = true;
+    function loadmorearchived() {
+        if ($("#ok_timeline").val() == 0){
+            if (remind){
+                alert("加载完毕!");
+                remind = false;
+            }
+            return;
+        }
+
+        page++;
+        $("#load_timeline_content").load(
+            "/archived/loadmore",
+            {page:page},
+            function () {
+                ok = $("#ok_timeline").val();
+                //加载完毕
+                if (ok == 0) {
+                    $("#loadmoreTimeline").val("加载完毕");
+                }
+            }
+        )
+    }
+</script>
+
+<!--小首图-->
+<script th:replace="_fragment-picture :: firstPicture-small">
+
+</script>
+
+</body>
+</html>

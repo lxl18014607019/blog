@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>写文章</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .firstpicture{
+        width: 100%;
+    }
+    .bootstrap-select .dropdown-toggle:focus, .bootstrap-select>select.mobile-device:focus+.dropdown-toggle {
+        outline: none!important;
+        outline: none!important;
+    }
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container animated fadeIn lucency-xs">
+    <input type="hidden" id="copyValue">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="panel">
+                <!--表单-->
+                <form action="#" th:action="@{/admin/blog}" th:object="${blogs}" method="post" role="form">
+                    <!--此id用于修改-->
+                    <input type="hidden" id="idId" name="id" th:value="*{id}">
+                    <!--标题-->
+                    <div class="well">
+                        <h3>标题</h3>
+                        <hr>
+                        <select id="select" class="selectpicker bla bla bli" data-live-search="false" name="nature">
+                            <div>
+                                <option th:selected="*{nature} == '原创'" value="原创">原创</option>
+                                <option th:selected="*{nature} == '转载'" value="转载">转载</option>
+                                <option th:selected="*{nature} == '优选'" value="优选">优选</option>
+                                <option th:selected="*{nature} == '翻译'" value="翻译">翻译</option>
+                            </div>
+                        </select>
+
+<!--                        <select id="copyTag" class="selectpicker bla bla bli" data-live-search="true" data-size="5">
+                            <div>
+                                <option value="">html标签</option>
+                                <option value="&lt;font color='red'&gt;&lt;/font&gt;">font</option>
+                                <option value="&lt;p&gt;&lt;/p&gt;">p</option>
+                            </div>
+                        </select>-->
+                        <br>
+                        <br>
+                        <input type="text" name="title" class="form-control" placeholder="请输入文章标题..." th:value="*{title}">
+                    </div>
+                    <!--内容部分-->
+                    <div class="panel-body">
+                        <!--内容-->
+                        <h3>内容</h3>
+                        <hr>
+                        <div>
+                            <!--markdown编辑器-->
+                            <div id="md-content" style="z-index: 1 !important;">
+                                <textarea name="content" id="contentId" placeholder="博客内容" style="display: none;" th:utext="*{content}">
+# 标题
+
+- 作者:任一;
+- email:2822930767;
+- 分类:;
+- 标签:;
+
+                        </textarea>
+                            </div>
+                        </div>
+                        <!--分类/标签/首图部分-->
+                        <h3>文章信息</h3>
+                        <hr>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <!--分类-->
+                               <div class="col-md-3">
+                                   <h4 class="display-inline"><label class="label label-success">分类</label></h4>
+                                   <select id="select_type" class="selectpicker bla bla bli display-inline margin-top-sm" data-live-search="true" data-size="10" name="typeId">
+                                       <div th:each="type : ${types}">
+                                           <option value="1" th:selected="${type.id} == *{typeId}" th:value="${type.id}"><span th:text="${type.name}">编程</span></option>
+                                           <!--/*-->
+                                           <option value="2">英语</option>
+                                           <option value="3">健身</option>
+                                           <!--*/-->
+                                       </div>
+                                   </select>
+                               </div>
+                               <div class="col-md-9">
+                                   <h4 class="display-inline"><label class="label label-success">首图</label></h4>
+                                   <input type="text" class="form-control firstpicture margin-top-sm" name="firstpicture" placeholder="首图地址..." th:value="*{firstpicture}">
+                               </div>
+                           </div>
+                       </div>
+                        <br>
+                        <br>
+                        <!--首页介绍-->
+                        <div class="rwo">
+                            <div class="col-md-12">
+                                <h4><laebl class="label label-primary">首页介绍</laebl></h4>
+                                <textarea rows="10" class="form-control" name="description" placeholder="首页介绍..." th:text="*{description}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--转载等按钮-->
+                    <div class="panel-footer box-background">
+                        <input type="checkbox" name="recommend" id="recommendId" th:checked="*{recommend}">
+                        <label for="recommendId">推荐</label>
+
+                        <input type="checkbox" name="reprint" id="reprintId" th:checked="*{reprint}">
+                        <label for="reprintId">转载</label>
+
+                        <input type="checkbox" name="supportreview" id="supportreviewId" th:checked="*{supportreview}">
+                        <label for="supportreviewId">评论</label>
+
+                        <input type="checkbox" name="recordlife" id="recordlifeId" th:checked="*{recordlife}">
+                        <label for="recordlifeId">记录生活</label>
+
+                        <!--admire不给默认值会被修改为0-->
+                        <input hidden type="text" th:value="*{admire}" name="admire">
+
+                        <!--按钮-->
+                        <div class="form-inline text-right">
+                            <a href="javascript:history.back(-1)" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> 返回</a>
+                            <button th:if="*{id != null}" class="btn btn-info popover-dismiss" type="button" onclick="saveContent();">保存</button>
+                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-hand-up"></span> <span th:text="*{id} == null ? '点击发布' : '提交更改'"> 发布</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+<script>
+    //初始化markdown编辑器
+    var contentEditor;
+    $(function() {
+        contentEditor = editormd("md-content", {
+            width: "100%",
+            height: 800,
+            syncScrolling: "single",
+            path: "/lib/editormd/lib/",
+            taskList : true,
+            emoji : true,
+            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+        })
+    });
+
+    // ctrl + q 插入<br/>标签
+    document.addEventListener('keydown', function (e) {
+        if (e.keyCode == 81 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            contentEditor.insertValue("<br/>");
+            contentEditor.focus();
+        }
+    });
+
+
+    // ctrl + e 插入font标签
+    document.addEventListener('keydown', function (e) {
+        if (e.keyCode == 77 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            contentEditor.insertValue("<font color='#24739e'>文本</font>");
+            contentEditor.focus();
+        }
+    });
+</script>
+
+<!--初始化select-->
+<script type="text/javascript">
+    $(window).on('load', function () {
+        $('.selectpicker').selectpicker({
+            'selectedText': 'cat',
+            'maxOptionsText': '×最大2个'
+        });
+
+        // $('.selectpicker').selectpicker('hide');
+    });
+</script>
+
+<!--表单验证-->
+<script>
+    $(function () {
+        $('form').bootstrapValidator({
+
+            message: '错误!!',
+            fields: {
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: '标题不能为空'
+                        }
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: '内容不能为空'
+                        }
+                    }
+                },
+                firstpicture: {
+                    validators: {
+                        notEmpty: {
+                            message: '首图不能为空'
+                        }
+                    }
+                },
+                description: {
+                    validators: {
+                        notEmpty: {
+                            message: '介绍不能为空'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    //保存内容
+    function saveContent() {
+        var contentObj = $("#contentId");
+        var idObj = $("#idId");
+        if (idObj.val() != '' && contentObj.val() != ''){
+            console.info(contentObj.val());
+            //ajax发送请求;
+            $.post(
+                "/admin/savecontent",
+                {id : idObj.val(),content : contentObj.val()},
+                function (result) {
+                    if (result == "success"){
+                        alert("保存成功!");
+                    }else{
+                        alert("保存失败");
+                    }
+                },
+                "text"
+            );
+        }else
+            alert("请先发布博客再进行保存操作!")
+    }
+</script>
+
+<!--快捷键-->
+<script>
+
+    //contrl+s
+    document.addEventListener('keydown', function (e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            //发送请求
+            var contentObj = $("#contentId");
+            if (contentObj.val() != null && contentObj.val() != ''){
+                saveContent();
+            }else
+                alert("只允许编辑博客时进行保存操作!")
+        }
+    });
+
+</script>
+
+<!--close-->
+<script>
+/*    window.onbeforeunload = function() {
+        return "确定离开页面吗？";
+    }*/
+</script>
+
+
+<!--<script>
+        $("#copyTag").change(function () {
+            //复制选中的值
+            var copyinput = document.getElementById("copyValue");
+            copyinput.value = this.value;
+            copyinput.select();
+            document.execCommand("copy");
+        });
+</script>-->
+
+
+</body>
+</html>

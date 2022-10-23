@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>文章内容</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="https://unpkg.com/autocjs@1.3.0/dist/autoc.min.css">
+
+</head>
+
+<link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+
+<style>
+
+    /*.border-radius-10 {*/
+        /*border-top-left-radius: 5px;*/
+        /*border-top-right-radius: 5px;*/
+        /*border-bottom-right-radius: 0px;*/
+        /*border-bottom-left-radius: 0px;*/
+    /*}*/
+
+
+
+    .typo-me {
+        font: 300 1em/1.8 PingFang SC, Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+    }
+    .img-first{
+        padding: 10px 10px;
+        border-radius: 15px!important;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .display-inline{
+        display: inline;
+    }
+
+    .text-width-120{
+        width: 200px;
+    }
+
+    .btn-default.disabled {
+        background-color: #bbbbbb;
+    }
+
+    .text-width-250{
+        width: 250px!important;
+    }
+
+    pre > code{
+        font-size: 14px!important;
+        font-family: 黑体!important;
+    }
+
+    .typo blockquote {
+        border-left: 3px solid #464646;
+
+    }
+
+    /*.typo p {*/
+
+        /*line-height: 1.8;*/
+        /*text-align: justify;*/
+        /*color: #000000 !important;*/
+        /*font-family: 微软雅黑;*/
+    /*}*/
+    
+    blockquote {
+        margin-left: 0px!important;
+    }
+
+    #blogcontent>img:hover{
+        cursor: pointer;
+    }
+
+
+    /*自定义目录的a标签的样式*/
+    .k-catelog-list > ul > li > a {
+        cursor: pointer;
+        font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+        color: #1abc9c;
+        line-height: 30px;
+
+    }
+
+    .k-catelog-list > ul > li > a:hover {
+        color: #2a6496;
+    }
+
+    .k-catelog-list > ul > li > ul > li > a {
+        cursor: pointer;
+        font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
+        color: #1abc9c;
+        line-height: 30px;
+    }
+
+    .k-catelog-list > ul > li > ul > li > a:hover {
+        color: #55aef9;
+    }
+
+    html {
+        overflow-y: scroll;
+    }
+
+    body {
+        width: 100%;
+        overflow: hidden;
+    }
+    blockquote{
+        background-color: #eeeef4;
+    }
+    #blogcontent img{
+        border-radius: 10px!important;
+    }
+    #blogcontent pre {
+        border-radius: 10px;
+        background-color: #3c3c3c;
+    }
+
+    .well {
+        border-radius: 10px;
+    }
+
+    .border-radius-10 {
+        border-radius: 7px;
+    }
+
+    .first-img-blog-parent {
+        position: relative;
+        height: 450px;
+    }
+    @media (max-width: 768px){
+        .first-img-blog-parent {
+            height: 300px;
+        }
+    }
+    .first-img-blog {
+        width: 100%;
+        position: absolute;
+        top: 0px;
+        height: 100%;
+        display: block;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: 0px 0px;
+        padding: 0px 0px;
+    }
+
+    .blog-me-info {
+        position: absolute;
+        top: 150px;
+    }
+    @media (max-width: 768px){
+        .blog-me-info {
+            top: 100px;
+        }
+    }
+
+    .article-margin {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+
+
+    @media (max-width: 768px){
+        .first-img-blog-parent {
+            display: none;
+        }
+    }
+
+    /* 手机端适配 */
+    @media (max-width: 768px){
+        .article-margin {
+            margin-left: 0;
+            margin-right: 0;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .col-md-12 {
+            padding-right: 0px;
+            padding-left: 0px;
+        }
+
+        h4 {
+            font-weight: 400!important;
+        }
+
+        .typo p {
+            font-weight: 400!important;
+        }
+
+        .blog-head {
+            padding: 20px;
+        }
+
+        /*目录*/
+        .catalog {
+            margin-left: 20px;
+        }
+        .message {
+            margin-left: 15px;
+        }
+    }
+
+    .navbar {
+        margin-bottom: 0px;
+    }
+
+    .form-control {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .loadMoreButton {
+        width: 100px;
+        height: 35px;
+        background-color: #dae3ec;
+        outline: none;
+        border-radius: 10px;
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .loadMoreButton:hover {
+        background-color: #d9d7d6;
+    }
+
+    .panel {
+        border: none;
+        border-radius: 10px;
+        transition: 0.5s;
+    }
+
+    .panel-footer {
+        border: none;
+    }
+
+    .blog-head {
+        transition: 0.5s;
+    }
+
+    .blog-content {
+        transition: 0.5s;
+    }
+
+    body {
+        transition: 0.5s;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    /*.k-catelog-list ul {*/
+        /*border-left: 1px solid grey;*/
+    /*}*/
+
+    .typo pre {
+        border: none !important;
+    }
+
+    .typo blockquote {
+        margin: 1em 0em 1em 2em;
+    }
+
+    .typo a {
+        text-decoration: none!important;
+        border-bottom: none;
+    }
+
+
+</style>
+
+<style>
+    /*在手机端适应li*/
+    @media (max-width: 768px){
+        #blogcontent ul,li{ margin: 0px; padding:0; list-style:none; }
+        #blogcontent ul{
+            list-style-type:none;
+            width:auto;
+            margin:0 auto;
+        }
+    }
+    /*手机端隐藏*/
+    .sjbdmap{display: inline;}
+    @media (max-width: 1200px){.sjbdmap{display: none !important;}}
+
+    /*手机端加粗字体*/
+    @media (max-width: 768px){#blogcontent h5{    font-weight: 400;  }}
+
+    /*手机端加长小首图*/
+    @media (max-width: 768px){ .div-background-blog{height: 55%;  }}
+
+    /*手机端panel-body去掉padding*/
+    .panel-body{padding: 15px;}
+    @media (max-width: 1200px){.panel-body{padding: 0px;}}
+
+</style>
+
+<style>
+    .admire {
+        color: #ff4564;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+<!--导航-->
+<nav th:replace="_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!--首图层-->
+<div class="first-img-blog-parent">
+<!--    <div class="div-background-blog animated fadeInUpBig z-index-1" style="filter: brightness(70%);" id="firstPicture-container"></div>-->
+    <img class="first-img-blog animated fadeInUpBig z-index-1" style="filter: brightness(70%);"  src="" th:src="${blog.getFirstPicture()}">
+
+    <div class="container blog-me-info" style="width: 100%;">
+        <div class="row">
+            <div class="col-md-12 z-index-2 animated zoomIn">
+                <div class="text-center">
+                    <a href="javascript:void(0);" onclick="downrollblog();">
+                        <img class="img-size-tiny img-circle text-border rotateImg" src="../static/images/avatar/avatar2.jpg" th:src="${user.avatar}">
+                    </a>
+                    <div class="row">
+                        <b><h2 class="text-color-white font-FANGZHENGSHUTI color-title" th:text="${blog.title}">Sunshine Boy</h2></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<!--内容区域-->
+<div class="container animated fadeInUpBig" id="contentId">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <!--作者-->
+                <div class="panel-heading blog-head">
+                    <div class="row">
+                        <!--user-->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <!--头像姓名-->
+                                    <img class="img-size-xxs img-circle" src="../static/images/avatar/avatar2.jpg" th:src="${user.avatar}">
+                                    <span><a href="#"><span th:text="${user.nickName}"></span></a></span>
+                                    &nbsp;
+                                    &nbsp;
+                                    <!--日期-->
+                                    <span class="glyphicon glyphicon-calendar"></span> <span  th:text="${blog.createTime}">20220201</span>
+                                    &nbsp;
+                                    &nbsp;
+                                    <!--浏览次数-->
+                                    <span class="glyphicon glyphicon-eye-open"></span> <sapn th:text="${blog.view}"> 154</sapn>
+                                </div>
+                                <div class="col-md-2 text-right">
+                                    <button id="add_admire_button" class="btn-default btn-sm extend-btn border-none outline-none sjbdmap" onclick="givelike()">
+                                        👍 <span id="admire_span" th:text="${blog.admire}">0</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!--内容部分-->
+                <div class="panel-body blog-content">
+                    <!--居中标题-->
+                    <h2 class="text-center blog-title" th:text="${blog.title}">标题</h2>
+                    <!--目录部分-->
+                    <div class="row">
+                        <h2 class="font-PF font-size-md margin-left-sm display-inline catalog">
+                            <a onclick="changeMenu();" style="cursor: pointer; color: #38abbf;">目录</a>
+                        </h2>
+                        <select class="font-PF" hidden id="change_menu">
+                            <option value="h1 h2">h1-h2</option>
+                            <option value="h2 h3">h2-h3</option>
+                            <!--<option value="h3 h4">h3-h4</option>-->
+                            <!--<option value="hidden">隐藏</option>-->
+                        </select>
+                        <div class="font-size-sm margin-top-sm">
+                            <div class="k-catelog-list" id="catelogList"></div>
+                        </div>
+                    </div>
+                    <div class="row article-margin">
+                        <div class="col-md-12 col-xs-12">
+                            <!--内容-->
+                            <div class="typo type-selection js-toc-content typo-me" id="blogcontent">
+                                <div th:utext="${blog.getContent()}" id="viewer">
+                                    <!------------------------------------------------------->
+                                    <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
+
+                                    <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
+                                    <h4>现状和如何去做：</h4>
+
+                                    <p class="typo-first">排版是一个麻烦的问题 <sup><a href="#appendix1"># 附录一</a></sup>，需要精心设计，而这个设计却是常被视觉设计师所忽略的。前端工程师更常看到这样的问题，但不便变更。因为在多个 OS 中的不同浏览器渲染不同，改动需要多的时间做回归测试，所以改变变得更困难。而像我们一般使用的
+                                        Yahoo、Eric Meyer 和 Alice base.css 中采用的 Reset 都没有很好地考虑中文排版。<i class="serif">Typo.css</i> 要做的就是解决中文排版的问题。</p>
+
+                                    <p><strong><i class="serif">Typo.css</i> 测试于如下平台：</strong></p>
+                                    <div class="table-responsive">
+                                        <table class="table" summary="Typo.css 的测试平台列表">
+                                            <thead>
+                                            <tr>
+                                                <th>OS/浏览器</th>
+                                                <th>Firefox</th>
+                                                <th>Chrome</th>
+                                                <th>Safari</th>
+                                                <th>Opera</th>
+                                                <th>IE9</th>
+                                                <th>IE8</th>
+                                                <th>IE7</th>
+                                                <th>IE6</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>OS X</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Win 7</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Win XP</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>-</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ubuntu</td>
+                                                <td>✔</td>
+                                                <td>✔</td>
+                                                <td>-</td>
+                                                <td>✔</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h4>中文排版的重点和难点</h4>
+
+                                    <p>在中文排版中，HTML4 的很多标准在语义在都有照顾到。但从视觉效果上，却很难利用单独的 CSS 来实现，像<abbr title="在文字下多加一个点">着重号</abbr>（例：这里<em class="typo-em">强调一下</em>）。在 HTML4 中，专名号标签（<code>&lt;u&gt;</code>）已经被放弃，而
+                                        HTML5 被<a href="http://html5doctor.com/u-element/">重新提起</a>。<i class="serif">Typo.css</i> 也根据实际情况提供相应的方案。我们重要要注意的两点是：</p>
+                                    <ol>
+                                        <li>语义：语义对应的用法和样式是否与中文排版一致</li>
+                                        <li>表现：在各浏览器中的字体、大小和缩放是否如排版预期</li>
+                                    </ol>
+                                    <p>对于这些，<i class="serif">Typo.css</i> 排版项目的中文偏重注意点，都添加在附录中，详见：</p>
+                                    <blockquote>
+                                        <b>附录一</b>：<a href="#appendix1"><i class="serif">Typo.css</i> 排版偏重点</a>
+                                    </blockquote>
+
+                                    <p>目前已有像百姓网等全面使用 <i class="serif">Typo.css</i> 的项目，测试平台的覆盖，特别是在<abbr title="手机、平板电脑等移动平台">移动端</abbr>上还没有覆盖完主流平台，希望有能力的同学能加入测试行列，或者加入到 <i class="serif">Typo.css</i>
+                                        的开发。加入方法：<a href="https://github.com/sofish/Typo.css">参与 <i class="serif">Typo.css</i> 开发</a>。如有批评、建议和意见，也随时欢迎给在 Github 直接提 <a
+                                                href="https://github.com/sofish/Typo.css/issues">issues</a>，或给<abbr title="Sofish Lin, author of Typo.css"
+                                                                                                                    role="author">我</abbr>发<a
+                                                href="mailto:sofish@icloud.com">邮件</a>。</p>
+
+
+                                    <h2 id="section2">二、排版实例：</h2>
+
+                                    <p>提供2个排版实例，第一个中文实例来自于来自于<cite class="typo-unique">张燕婴</cite>的《论语》，由于古文排版涉及到的元素比较多，所以采用《论语》中《学而》的第一篇作为排版实例介绍；第2个来自到经典的
+                                        Lorem Ipsum，并加入了一些代码和列表等比较具有代表性的排版元素。</p>
+
+                                    <h3 id="section2-1">例1：论语学而篇第一</h3>
+
+                                    <p>
+                                        <small><b>作者：</b><abbr title="名丘，字仲尼">孔子</abbr>（
+                                            <time>前551年9月28日－前479年4月11日</time>
+                                            ）
+                                        </small>
+                                    </p>
+
+                                    <h4>本篇引语</h4>
+
+                                    <p>
+                                        《学而》是《论语》第一篇的篇名。《论语》中各篇一般都是以第一章的前二三个字作为该篇的篇名。《学而》一篇包括16章，内容涉及诸多方面。其中重点是「吾日三省吾身」；「节用而爱人，使民以时」；「礼之用，和为贵」以及仁、孝、信等道德范畴。 </p>
+
+                                    <h4>原文</h4>
+
+                                    <p>子曰：「学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知，而不愠，不亦君子乎？」 </p>
+
+                                    <h4>译文</h4>
+
+                                    <p>孔子说：「学了又时常温习和练习，不是很愉快吗？有志同道合的人从远方来，不是很令人高兴的吗？人家不了解我，我也不怨恨、恼怒，不也是一个有德的君子吗？」 </p>
+
+                                    <h4>评析</h4>
+
+                                    <p>宋代著名学者<u class="typo-u">朱熹</u>对此章评价极高，说它是「入道之门，积德之基」。本章这三句话是人们非常熟悉的。历来的解释都是：学了以后，又时常温习和练习，不也高兴吗等等。三句话，一句一个意思，前后句子也没有什么连贯性。但也有人认为这样解释不符合原义，指出这里的「学」不是指学习，而是指学说或主张；「时」不能解为时常，而是时代或社会的意思，「习」不是温习，而是使用，引申为采用。而且，这三句话不是孤立的，而是前后相互连贯的。这三句的意思是：自己的学说，要是被社会采用了，那就太高兴了；退一步说，要是没有被社会所采用，可是很多朋友赞同<abbr
+                                            title="张燕婴">我</abbr>的学说，纷纷到我这里来讨论问题，我也感到快乐；再退一步说，即使社会不采用，人们也不理解我，我也不怨恨，这样做，不也就是君子吗？（见《齐鲁学刊》1986年第6期文）这种解释可以自圆其说，而且也有一定的道理，供读者在理解本章内容时参考。
+                                    </p>
+
+                                    <p>此外，在对「人不知，而不愠」一句的解释中，也有人认为，「人不知」的后面没有宾语，人家不知道什么呢？当时因为孔子有说话的特定环境，他不需要说出知道什么，别人就可以理解了，却给后人留下一个谜。有人说，这一句是接上一句说的，从远方来的朋友向我求教，我告诉他，他还不懂，我却不怨恨。这样，「人不知」就是「人家不知道我所讲述的」了。这样的解释似乎有些牵强。</p>
+
+                                    <p>总之，本章提出以学习为乐事，做到人不知而不愠，反映出孔子学而不厌、诲人不倦、注重修养、严格要求自己的主张。这些思想主张在《论语》书中多处可见，有助于对第一章内容的深入了解。</p>
+                                    <!------------------------------------------------------->
+                                </div>
+                            </div>
+                            <!--内容结束-->
+                        </div>
+                    </div>
+                </div>
+                <!--底部-->
+                <div class="panel-footer lucency-only-box-lg blog-footer">
+
+                    <!--点赞-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                            <!--<div style="text-align: center;">-->
+                                <!--<h3 id="admire" th:fragment="admire">-->
+                                    <!--<span onclick="getAdmire()" class="admire"><span class="glyphicon glyphicon-heart"></span> <span>15</span></span>-->
+                                <!--</h3>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="well blog-author-info">
+                        <!--作者信息-->
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-12"><h3 class="message">信息</h3></div>
+                            </div>
+                            <hr>
+                            <img class="img-size-xxs img-circle" src="../static/images/avatar/avatar2.jpg" th:src="@{/images/avatar/avatar2.jpg}">
+                            <span><a href="#">任一</a></span>
+                            <br>
+                            <br>
+                            <p class="display-inline">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <h5 class="display-inline">发布时间: <span th:text="${blog.createTime}">2020-07-08</span></h5>
+                            </p>
+                            <p class="display-inline">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <h5 class="display-inline"><span>更新时间: </span><span th:text="${blog.updateTime}">2020-07-08</span></h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div th:if="${blog.supportReview}" class="well blog-comment" id="commentplace">
+                        <!--评论-->
+                        <div class="row">
+                            <!--评论标题-->
+                            <h3>评论</h3>
+                            <hr>
+                            <div id="commentContainer">
+                                <div th:fragment="commentContent">
+                                    <!--评论内容-->
+                                    <ul class="media-list" th:each="comment : ${comments}">
+                                        <div>
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a href="#">
+                                                        <img th:if="${comment.adminComment == false}" class="img-size-xxs img-circle" src="../static/images/avatar/boy.png" th:src="@{/images/avatar/boy.png}">
+                                                        <img th:if="${comment.adminComment}" class="img-size-xxs img-circle" src="../static/images/avatar/avatar2.jpg" th:src="${user.avatar}">
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5 class="media-heading"><b th:text="${comment.nickName}">任一</b>
+                                                        <label th:if="${comment.adminComment}" class="label label-info">管理员</label>
+                                                    </h5>
+                                                    <span class="font-size-sm" th:utext="${comment.content}">
+                                                        评论信息...
+                                                    </span><br>
+                                                    <span class="" th:text="${comment.createTime}"></span>
+                                                    <a href="javascript:void(0);" th:attr="data-parent=${comment.id},data-nickname=${comment.nickName}" onclick="replyComment(this)">回复</a>
+                                                    <!--子评论-->
+                                                    <ul class="media" th:if="${comment.getSonComment().size() > 0}" th:each="soncomment : ${comment.getSonComment()}">
+                                                        <!--子评论头像区域-->
+                                                        <div class="media-left">
+                                                            <a href="#">
+                                                                <img th:if="${soncomment.adminComment == false}" class="img-size-xxs img-circle" src="../static/images/avatar/avatar2.jpg" th:src="@{/images/avatar/boy.png}">
+                                                                <img th:if="${soncomment.adminComment}" class="img-size-xxs img-circle" src="../static/images/avatar/avatar2.jpg" th:src="${user.avatar}">
+                                                            </a>
+                                                        </div>
+                                                        <!--子评论内容区域-->
+                                                        <div class="media-body">
+                                                            <h5 class="media-heading"><b th:text="${soncomment.nickName}">任一</b>
+                                                                <label th:if="${soncomment.adminComment}" class="label label-info">管理员</label>
+                                                                <span class="text-color-teal" th:text="| @${soncomment.parentComment.nickName}|"></span>
+                                                            </h5>
+                                                            <span class="font-size-sm" th:utext="${soncomment.content}">
+                                                                评论信息...
+                                                            </span>
+                                                            <br>
+                                                            <span class="" th:text="${soncomment.createTime}"></span>
+                                                            <a href="javascript:void(0);" th:attr="data-parent=${soncomment.id},data-nickName=${soncomment.nickName}" onclick="replyComment(this)">回复</a>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </ul>
+                                    <!--分页-->
+                                    <div class="row" th:if="${parentBlogComment} > ${commentCount}">
+                                        <div class="col-md-12 text-center">
+                                            <input type="button" value="加载更多" id="loadmoreBtn" onclick="loadMoreComments(this)" class="loadMoreButton" th:attr="data-commentcount=${commentCount}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <!-- <form th:if="${blog.supportreview}" action="#" id="submitCommentForm" th:action="@{/blogcomment/comment}" method="post">-->
+                        <div class="form" th:if="${blog.supportReview}">
+                            <div class="well blog-comment-form">
+                                <input type="hidden" name="blogid" th:value="${blog.id}">
+                                <!--输入评论区域-->
+                                <textarea class="border-radius-10 form-control" name="content" id="content" cols="50" rows="10" placeholder="请输入评论信息,支持html语法..." style="resize: none; border: none; border-bottom: 2px solid deepskyblue;"></textarea>
+                                <br>
+                                <div class="form-inline lucency-only-box-all">
+                                    <input type="email" id="email" class="form-control text-width-250 margin-bottom-xs" name="email" placeholder="请输入邮箱(xx@qq.com) 可空" style="resize: none; border: none; border-bottom: 2px solid deepskyblue;">
+                                    <input type="text" id="nickname" class="form-control text-width-250 margin-bottom-xs" name="nickname" placeholder="请输入昵称..." style="resize: none; border: none; border-bottom: 2px solid deepskyblue;">
+                                    <input type="hidden" id="parentId" name="parentid">
+                                    <button type="button" id="subCommentBtn" class="btn btn-success margin-bottom-xs">
+                                        <span class="glyphicon glyphicon-hand-up"></span> 发布评论
+                                    </button>
+                                    <button  type="button" id="cancleCommentBtn" onclick="cancelReply();" class="btn btn-default margin-bottom-xs" style="display: none">
+                                        <span class="glyphicon glyphicon-remove"></span> 取消回复
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <!--</form>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a th:if="${blog.supportReview}" href="javascript:void(0);" onclick="gotoComment()" class="btn btn-default">留言</a>
+        <a href="javascript:void(0);" onclick="gotoTop()" class="btn btn-default">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+
+
+
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+</th:block>
+
+<!--目录生成,在js文件中的a标签经过了自定义-->
+<script src="../static/lib/katelog/katelog.min.js" th:src="@{/lib/katelog/katelog.min.js}"></script>
+<script>
+    new katelog({
+        contentEl: 'blogcontent',
+        catelogEl: 'catelogList',
+        linkClass: 'k-catelog-link',
+        linkActiveClass: 'k-catelog-link-active',
+        supplyTop: 60,
+        selector: ['h1', 'h2'],
+        active: function (el) {
+            // console.log(el);
+        }
+    });
+</script>
+
+<!--展示目录选择框-->
+<script>
+    function changeMenu() {
+
+        //获取元素
+        var selectMenu = $("#change_menu");
+
+        //判断元素是否隐藏
+        if ($(selectMenu).is(':hidden')){
+            $(selectMenu).show(200);
+        } else{
+            $(selectMenu).hide(200);
+        }
+    }
+
+    /*当选择框被改变*/
+    $("#change_menu").change(f);
+    function f() {
+        //获取value
+        var value = $("#change_menu").val();
+        //分割字符传
+        var array = value.split(" ");
+        //刷新目录菜单
+        fulushMenu(array);
+    }
+
+
+    function fulushMenu(value) {
+        /*if (value == "hidden"){
+            $("#catelogList").remove();
+            alert("啊是大")
+            return;
+        }*/
+        new katelog({
+            contentEl: 'blogcontent',
+            catelogEl: 'catelogList',
+            linkClass: 'k-catelog-link',
+            linkActiveClass: 'k-catelog-link-active',
+            supplyTop: 60,
+            selector: value,
+            active: function (el) {
+                console.log(el);
+            }
+        });
+    }
+
+</script>
+
+<!--<script th:inline="javascript" type="text/javascript">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]]
+    //设置背景图片
+    document.getElementById("firstPicture-container").style.backgroundImage="url(" + url + ")";
+
+
+</script>-->
+
+
+
+<!--表单验证-->
+<script>
+
+    $("#subCommentBtn").click(checkForm);
+
+    function checkForm() {
+        var email = $("#email");
+        var nickname = $("#nickname");
+        var content = $("#content");
+        /*邮箱正则*/
+        var emailreg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+
+        if (content.val() == ""){
+            content.prop("placeholder","请输入评论信息...");
+            content.focus()
+        }else if(nickname.val() == ""){
+            nickname.prop("placeholder","请输入昵称...");
+            nickname.focus();
+        }/*else if (email.val() == ""){
+            email.prop("placeholder","请输入邮箱...");
+            email.focus();
+        }*/
+        //邮箱为空进行验证
+        else if(email.val() != ""){
+            if(!emailreg.test(email.val())) {
+                email.focus();
+                email.val("")
+                email.prop("placeholder", "请输入正确的邮箱...");
+            }else{
+                //ajax提交请求
+                submitCommentPost();
+            }
+
+        }else{
+            //ajax提交请求
+            submitCommentPost();
+        }
+    }
+
+    //公共验证方法
+    function checkFormNoSubmit(){
+        var email = $("#email");
+        var nickname = $("#nickname");
+        var content = $("#content");
+        /*邮箱正则*/
+        var emailreg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+
+        if (content.val() == ""){
+            content.prop("placeholder","请输入评论信息...");
+            content.focus()
+        }else if(nickname.val() == ""){
+            nickname.prop("placeholder","请输入昵称...");
+            nickname.focus();
+        }/*else if (email.val() == ""){
+            email.prop("placeholder","请输入邮箱...");
+            email.focus();
+        }*/
+        //邮箱为空进行验证
+        else if(email.val() != ""){
+            if(!emailreg.test(email.val())) {
+                email.focus();
+                email.val("")
+                email.prop("placeholder", "请输入正确的邮箱...");
+            }
+
+        }
+    }
+
+
+    //回复功能,但是这里如果已经有了回复内容,会直接提交表单,因为调用了checkForm
+    function  replyComment(Obj) {
+        checkFormNoSubmit();
+        $("#parentId").val($(Obj).data("parent"));
+        $("#content").prop("placeholder","@" + $(Obj).data("nickname"));
+        //取消回复按钮可见
+        $("#cancleCommentBtn").show(500);
+    }
+
+    //取消回复
+    function  cancelReply() {
+        $("#parentId").val("");
+        $("#content").prop("placeholder","");
+        //隐藏当前按钮
+        $("#cancleCommentBtn").hide(500);
+        checkFormNoSubmit();
+    }
+
+    //提交数据
+    function submitCommentPost() {
+        //获取数据
+        $("#commentContainer").load("/blogcomment/comment",{
+                "blogid" : $("[name='blogid']").val(),
+                "content" : $("[name='content']").val(),
+                "email" : $("[name='email']").val(),
+                "nickname" : $("[name='nickname']").val(),
+                "parentid" : $("[name='parentid']").val()
+            },
+            function (responseTxt, statusTxt, xhr) {
+               if (statusTxt == "success"){
+                   clearCommentContent();
+                   $("#subCommentBtn").attr('disabled',false);
+                   $("#content").prop("placeholder","评论成功,审核后显示!");
+               }
+            }
+        );
+        //不可频繁提交
+        $("#subCommentBtn").attr('disabled',true);
+    }
+
+    //置空
+    function clearCommentContent() {
+       $("[name='content']").val("");
+    }
+    
+</script>
+
+<script>
+    //滚动监听
+    var waypoint = new Waypoint({
+        element: document.getElementById('contentId'),
+        handler: function(direction) {
+            if (direction == 'down') {
+                $('#toolbar').show(500);
+            } else {
+                $('#toolbar').hide(500);
+            }
+        }
+    })
+
+
+
+    function gotoComment() {
+        var scroll_offset = $("#commentplace").offset(); //得到pos这个div层的offset，包含两个值，top和left
+        $("body,html").animate({
+            scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+        },0);
+        return false;
+    }
+    
+    function gotoTop() {
+        var scroll_offset = $("body").offset(); //得到pos这个div层的offset，包含两个值，top和left
+        $("body,html").animate({
+            scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+        },0);
+        return false;
+    }
+    
+</script>
+
+<script>
+    function downrollblog() {
+        var t = $(window).scrollTop();
+        $('body,html').animate({'scrollTop':t+480},0)
+        return false
+    }
+</script>
+
+<script type="text/javascript">
+    function copySource() {
+        var element = document.getElementById("originalBlogcontent");
+        element.style.display='block';
+        element.select();
+        document.execCommand("Copy");
+        element.style.display='none';
+
+        alert("复制成功! 提示: 源文件格式为markdown!");
+    }
+</script>
+
+
+<!--加载更多评论-->
+<script>
+    function loadMoreComments(obj) {
+        $("#loadmoreBtn").attr('disabled',true);
+        $("#loadmoreBtn").attr('value',"加载中...");
+        // 获取当前评论数量
+        var count = $(obj).data("commentcount") + 10
+
+
+        //查询更多评论
+        $("#commentContainer").load("/blogcomment/limit", {
+            "blogid": $("[name='blogid']").val(),
+            "count": count
+        },
+        function (responseTxt, statusTxt, xhr) {
+            if (statusTxt === 'success') {
+                $("#loadmoreBtn").attr('disabled',false);
+                $("#loadmoreBtn").attr('value',"加载更多");
+            }
+        })
+    }
+</script>
+
+
+<!--点赞-->
+<script>
+
+    function givelike() {
+
+        // 禁用按钮
+        $("#add_admire_button").attr('disabled',true);
+
+        var blogid = $("[name='blogid']").val()
+        // 不安全,但是不是重要数据
+        var admire = Number($("#admire_span").text())
+
+        if (blogid != '' && blogid != undefined && blogid != null) {
+
+            $.get('/blog/admire',{blogid:blogid,admire:admire},function (responseAdmire) {
+                $("#admire_span").text(responseAdmire)
+                //启用按钮
+                $("#add_admire_button").attr('disabled',false);
+            },'text')
+        }
+    }
+</script>
+
+</body>
+</html>

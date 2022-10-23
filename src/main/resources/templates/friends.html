@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>朋友圈</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+
+<style>
+
+    .multifunction {
+        margin-top: 40px;
+        margin-bottom: 25px;
+    }
+
+    .items {
+        margin: 0 auto;
+    }
+
+    .item .panel {
+        height: 60px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 1px #b1b1b1;
+        border: 0px;
+    }
+
+    .item .content {
+
+    }
+
+    .item img {
+        height: 60px;
+        width: 60px;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .item .content span {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .panel {
+        margin-bottom: 30px
+    }
+
+    .form input {
+        width: 160px !important;
+    }
+
+    .apply {
+        margin: 10px;
+    }
+
+    .info {
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 10px 1px #b1b1b1;
+    }
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(7)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}"><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-tag"></sapn>
+                    分类</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-align-left"></sapn>
+                    标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层-->
+<div class="phone-hide">
+    <div class="div-background-blog animated fadeInUpBig z-index-1 first-picture-small" style="filter: brightness(70%);"
+         id="firstPicture-container-small"></div>
+    <!--<br><br><br><br><br>-->
+    <div class="container first-picture-small-me-info" style="width: 100%;">
+        <div class="row">
+            <div class="col-md-12 z-index-2 animated zoomIn">
+                <div class="text-center">
+                    <a href="javascript:void(0);" onclick="downrollblog();">
+                        <img class="img-size-tiny img-circle text-border rotateImg"
+                             src="../static/images/avatar/avatar2.jpg" th:src="${user.avatar}">
+                    </a>
+                    <div class="row">
+                        <b><h2 class="text-color-white font-FANGZHENGSHUTI color-title">朋友圈</h2></b>
+                    </div>
+                    <!--<br><br><br><br><br><br><br>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--容器-->
+<div class="container" id="container-friends">
+    <div class="row">
+        <div class="col-md-12">
+            <!--面板-->
+            <div class="multifunction animated fadeInUp">
+
+                <!--申请友联面板-->
+                <div class="panel info">
+
+                    <div class="require">
+                        <h3>网站要求</h3>
+                        <ul>
+                            <li>无色情内容，无政治敏感内容，网站要能长期正常访问</li>
+                            <li>能够正常更新，网站不会荒废</li>
+                            <li>原创博客、技术博客、记录生活等内容优先</li>
+                            <li>需要交换友链，请先把本站添加到你的网站中</li>
+                        </ul>
+                        <h3>申请格式</h3>
+                        <ul>
+                            <li>博客标题：MyBlog</li>
+                            <li>博客地址：http://localhost:8090/</li>
+                            <li>图片地址：http://www.blogry.cn/images/avatar/default.jpg</li>
+                        </ul>
+                    </div>
+
+                    <div class="apply">
+                        <div class="form">
+                            <input name="url" type="text" class="form-control display-inline" placeholder="您的网站地址">
+                            <input name="picture" type="text" class="form-control  display-inline" placeholder="您的网站图片">
+                            <input name="title" type="text" class="form-control  display-inline" placeholder="您的网站标题">
+                            <button class="btn btn-info" onclick="check()">提交</button>
+                            <button class="btn btn-default" onclick="reset()">重置</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--提示休息-->
+                <div th:fragment="friends-hint" id="friends-hint-id">
+                    <div th:if="${ok!=null && ok > 0}" class="alert alert-success alert-dismissable" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><span th:text="${message}"></span></div>
+                    <div th:if="${ok!=null && ok <= 0}" class="alert alert-danger alert-dismissable" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><span th:text="${message}"></span></div>
+                </div>
+
+                <!--友联区域-->
+                <div class="items">
+                    <!--主体-->
+                    <div class="col-md-3 col-sm-6" th:each="friend : ${friends}">
+                        <div class="item">
+                            <a target="_blank" th:href="${friend.getUrl()}">
+                                <div class="panel">
+                                    <div class="content">
+                                        <img th:src="${friend.getPicture()}"
+                                             src="https://img-blog.csdnimg.cn/20200815151905991.jpg"> <span
+                                            th:text="${friend.getTitle()}">朋友圈</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--小首图-->
+<script th:replace="_fragment-picture :: firstPicture-small"></script>
+
+<!--提交-->
+<script>
+
+    function reset() {
+        $("[name='url']").val('')
+        $("[name='picture']").val('')
+        $("[name='title']").val('')
+    }
+    
+    function check() {
+
+        var url = $("[name='url']")
+        var picture = $("[name='picture']")
+        var title = $("[name='title']")
+        
+        if (url.val() === '') {
+            url.prop("placeholder", "请输入url");
+            url.focus()
+        }else if (picture.val() === '') {
+            picture.prop("placeholder", "请输入图片地址");
+            picture.focus()
+        }else if (title.val() === '') {
+            title.prop("placeholder", "请输入标题");
+            title.focus()
+        }else {
+            submitFriend()
+        }
+
+    }
+
+    function submitFriend() {
+
+        $("#friends-hint-id").load('/friend/add', {
+            "url": $("[name='url']").val(),
+            "picture": $("[name='picture']").val(),
+            "title": $("[name='title']").val(),
+        })
+        reset();
+    }
+</script>
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js"
+            th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+</th:block>
+</body>
+</html>

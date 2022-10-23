@@ -1,0 +1,388 @@
+body{
+    padding: 0px 0px;
+    margin: 0px 0px;
+    text-decoration: none;
+/*    background-image: url("https://retiehe.com/backend/bing/1080p");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-attachment:fixed;
+    background-size: cover;*/
+    /*filter: brightness(80%);;*/
+}
+
+/*去下划线*/
+a:focus{text-decoration: none}
+a:hover{text-decoration: none}
+
+
+/*背景图片*/
+.index-image{
+    z-index: -1;
+    width: 100%;!important;
+    height: 100%;!important;
+    position: absolute;
+    background-size: cover;
+    left: 0px;
+    top: 0px;
+/*    filter: brightness(90%);;*/
+}
+
+/*导航栏*/
+.navigation{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    z-index: 2;
+    height: auto;!important;
+}
+
+/*颜色*/
+.box-color-grey{
+    background-color: grey;!important;
+}
+
+/*头像*/
+.avatar{
+    margin-top: 5px;!important;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;!important;
+}
+
+.nickname{
+    font-family: STXihei;!important;
+    color: white;
+    transition: 0.5s;
+    text-shadow: 0px 0px 3px black;
+    vertical-align: middle;
+}
+
+.nickname:hover{
+    color: #c8ccc9;
+    transition: 0.5s;
+}
+
+.currentTime{
+    font-size: 50px;
+}
+
+
+
+/*搜索框 black*/
+.input-search{
+    width: 250px;
+    height: 40px;
+    border-radius: 50px;
+    outline: none;!important;
+    padding: 15px;
+    border: none;
+    text-shadow: 0px 0px 5px #2f2631;
+    box-shadow: 0px 0px 5px #1b8283;
+    background: rgba(54, 60, 61, 0.6);
+    /*background: rgba(243, 243, 243, 0.6);*/
+    text-align: center;
+    margin-top: 10px;
+    transition: 0.5s;
+    color: #ccc;
+
+
+}
+
+.input-search:focus{
+    outline: none;
+    width: 400px;
+    box-shadow: 0px 0px 5px #a7a7a7;
+    transition: 0.5s;
+}
+
+.input-search:focus::-webkit-input-placeholder { opacity: 0!important; -webkit-transition: .4s!important; transition: .4s!important; }
+.input-search-white:focus::-webkit-input-placeholder { opacity: 0!important; -webkit-transition: .4s!important; transition: .4s!important; }
+.input-search::-webkit-input-placeholder { opacity: 1!important; -webkit-transition: .4s!important; transition: .4s!important; }
+.input-search-white::-webkit-input-placeholder { opacity: 1!important; -webkit-transition: .4s!important; transition: .4s!important; }
+
+/*white*/
+.input-search-white{
+    width: 250px;
+    height: 40px;
+    border-radius: 50px;
+    outline: none;!important;
+    padding: 15px;
+    border: none;
+    text-shadow: 0px 0px 5px #b2b3b7;
+    box-shadow: 0px 0px 5px #1b8283;
+    background: rgba(245, 245, 255, 0.6);
+    /*background: rgba(243, 243, 243, 0.6);*/
+    text-align: center;
+    margin-top: 10px;
+    transition: 0.5s;
+    color: #3f3f3f;
+
+}
+.input-search-white::-webkit-input-placeholder{
+    color: #3f3f3f;
+}
+.input-search-white:focus{
+    width: 400px;
+    box-shadow: 0px 0px 5px #a7a7a7;
+    transition: 0.5s;
+}
+
+/*placeholder 颜色*/
+input::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #ccc;
+}
+input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+input:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #ccc;
+}
+
+/*图片样式*/
+.img-hw-50{
+    width: 50px;
+    height: 50px;
+}
+
+.img-hw-40{
+    width: 40px;
+    height: 40px;
+}
+
+.img-hw-60{
+    width: 60px;
+    height: 60px;
+}
+
+.img-hw-80{
+    width: 80px;
+    height: 80px;
+}
+
+/*圆角*/
+.circle-radius-5{
+    border-radius: 5px;
+}
+.circle-radius-10{
+    border-radius: 10px;
+}
+.circle-radius-20{
+    border-radius: 20px;
+}
+
+.circle-radius-30{
+    border-radius: 30px;
+}
+
+.circle-radius-50{
+    border-radius: 50px;
+}
+
+.circle-radius-80{
+    border-radius: 80px;
+}
+
+.circle-radius-100{
+    border-radius: 100px;
+}
+
+/*display*/
+.dispaly-inline{
+    display: inline;
+}
+
+.display-block{
+    display: block;
+}
+
+/*text-color*/
+.text-color-red{
+    color: #a94442;
+}
+.text-color-white{
+    color: white !important;
+}
+
+.text-color-black{
+    color: black !important;
+}
+.text-color-blue{
+    color: blue;
+}
+.text-color-teal{
+    color: teal !important;
+}
+.text-color-gray{
+    color: gray;
+}
+
+/*font-family*/
+.font-YOUYUAN{
+    font-family: 幼圆 !important;
+}
+.font-YAHEI{
+    font-family: "微软雅黑 Light" !important;
+}
+.font-HUAWENXINWEI{
+    font-family: 华文新魏;
+}
+.font-FANGZHENGSHUTI{
+    font-family: 方正舒体;
+}
+
+.font-HEITI{
+    font-family: 黑体;
+}
+
+/*font-size*/
+.font-size-xs{
+    font-size: 10px;
+}
+.font-size-sm{
+    font-size: 15px;
+}
+.font-size-md{
+    font-size: 20px;
+}
+.font-size-bg{
+    font-size: 30px;
+}
+.font-size-title{
+    font-size: 80px;
+}
+
+/*text-shadow*/
+.text-shadow-black{
+    text-shadow: 0px 0px 3px black;
+    vertical-align: middle;
+}
+
+.text-shadow-grey{
+    text-shadow: 0px 0px 5px grey;
+    vertical-align: middle;
+}
+
+/*margin-left*/
+.margin-left-10{
+    margin-left: 10px;
+}
+
+/*margin-top*/
+.margin-top-5{
+    margin-top: 5px;
+}
+
+.margin-top-100{
+    margin-top: 100px;!important;
+}
+
+.margin-top-150{
+    margin-top: 150px;!important;
+}
+
+.margin-top-200{
+    margin-top: 200px;!important;
+}
+
+/*suggestionText*/
+.suggestionText{
+    width: 500px;
+    height: 325px;
+    margin: 0px auto;
+    margin-top: 35px;!important;
+    background-color: #363C3D;
+    opacity: 80%;
+}
+
+/*table*/
+.suggestionTable{
+    margin-left: 20px;
+    width: 460px;
+    height: 290px;
+    background-color: #363C3D;
+    transition: 1s;
+    color: white;
+}
+/*tr*/
+.suggestionTable > tbody > tr {
+    transition: 0.2s;
+}
+.suggestionTable > tbody > tr:hover {
+    cursor:pointer;
+    color: #9d9d9d;
+    background-color: #4f4851;
+    transition: 0.2s;
+}
+
+/*td*/
+.suggestionTable > tbody > tr > td {
+    border-radius: 5px;
+    padding-left: 5px;
+    transition: 0.2s;
+}
+.suggestionTable > tbody > tr > td:hover {
+    border-radius: 5px;
+    padding-left: 10px;
+    transition: 0.2s;
+}
+
+/*---------white*/
+/*suggestionText*/
+.suggestionText-white{
+    width: 500px;
+    height: 325px;
+    margin: 0px auto;
+    margin-top: 35px;!important;
+    background-color: #efedf0;
+    opacity: 80%;
+}
+
+/*table*/
+.suggestionTable-white{
+    margin-left: 20px;
+    width: 460px;
+    height: 290px;
+    background-color: #efedf0;
+    transition: 1s;
+    color: #000;
+}
+
+.suggestionTable-white > tbody > tr {
+    transition: 0.2s;
+}
+.suggestionTable-white > tbody > tr:hover {
+    cursor:pointer;
+    color: #3c3c3c;
+    background-color: #cbd1d4;
+    transition: 0.2s;
+}
+
+/*td*/
+.suggestionTable-white > tbody > tr > td {
+    border-radius: 5px;
+    padding-left: 5px;
+    transition: 0.2s;
+}
+.suggestionTable-white > tbody > tr > td:hover {
+    border-radius: 5px;
+    padding-left: 10px;
+    transition: 0.2s;
+}
+/*a标签*/
+/*.suggestionOption{
+    color: white;
+    display: block;
+    transition: 0.5s;
+}
+
+.suggestionOption:hover{
+    color: #816983;
+    display: block;
+    transition: 0.5s;
+}*/

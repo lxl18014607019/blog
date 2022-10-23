@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>评论管理</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .circle_tr{
+        border-radius: 10px!important;
+    }
+
+    .width-60{
+        width: 40%;
+    }
+
+    .table-border-radius{
+        border-radius: 50px!important;
+    }
+</style>
+
+<body>
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br>
+
+
+<!-- 模态框 -->
+<div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <!--表单-->
+                <div>
+                    <!--存储id-->
+                    <input hidden type="text" id="editCommentId">
+                    <!--村粗值-->
+                    <textarea rows="5" cols="20" id="editCommentValue" type="text" class="form-control form-inline" style="resize: vertical"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="updateBlogComment()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--容器-->
+<div id="comments" class="container-fluid margin-left margin-right " th:fragment="comments_fragment">
+
+    <!--panel-->
+    <div class="row">
+        <!--sortpanel 是滚动监听的id-->
+        <div class="col-md-12">
+            <div class="panel shadow-gray-xs lucency-only-box-sm">
+                    <!--panel-heading-->
+                    <div class="panel-heading">
+                        <h2>评论管理</h2>
+                        <hr>
+                    </div>
+                    <!--panel-body-->
+                    <div class="panel-body"  id="top">
+                        <table class="table table-hover table-responsive table-border-radius">
+                            <thead>
+                            <tr class="circle_tr">
+                                <th>序号</th>
+                                <th>id</th>
+                                <th>内容</th>
+                                <!--<th>头像</th>-->
+                                <th>日期</th>
+                                <th>邮箱</th>
+                                <th>昵称</th>
+                                <th>博客</th>
+                                <th>管理员</th>
+                                <th>操作</th>
+                                <th>父级</th>
+                                <th>授权</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="circle_tr" th:each="comment,iterStat : ${comments}">
+                                    <td th:text="${iterStat.count}">1</td>
+                                    <td th:text="${comment.id}">id</td>
+                                    <td>
+                                        <div th:text="${comment.content}" style="width: 480px;background-color: #b3c4c8;border-radius: 5px;padding: 5px">内容</div>
+                                    </td>
+                                    <!--<td th:text="${comment.avatar}">头像</td>-->
+                                    <td th:text="${comment.createTime}">日期</td>
+                                    <td th:text="${comment.email}">邮箱</td>
+                                    <td th:text="${comment.nickname}">昵称</td>
+                                    <td>
+
+                                        <span th:if="${comment.blog} != null" th:text="${comment.blog.id}"></span>
+                                        <span th:if="${comment.blog} == null"> xxx</span>
+                                        <a th:if="${comment.blog} != null" target="_blank" th:href="|/blogs/${comment.blogid}|"><span th:text="${comment.blog.title}">博客</span></a>
+                                        <span th:if="${comment.blog} == null">可能被删除了</span>
+                                    </td>
+                                    <td th:text="${comment.admincomment} ? '✔' : '×'">管理员</td>
+                                    <td>
+                                        <a onclick="deleteComment(this)" class="btn btn-danger btn-sm" th:attr="data-commentid=${comment.id}">
+                                            <span class="glyphicon glyphicon-remove"></span> 删除
+                                        </a>
+                                        <button type="button" th:attr="data-whatever=${comment.id}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editCommentModal">
+                                            <span class="glyphicon glyphicon-edit"></span> 编辑
+                                        </button>
+                                    </td>
+                                    <td  th:text="${comment.parentid}">1</td>
+                                    <td>
+                                        <button onclick="changeAuthorization(this)" th:attr="data-commentid=${comment.id}" th:if="!${comment.authorization}" class="btn btn-sm btn-success">显示</button>
+                                        <button onclick="changeAuthorization(this)" th:attr="data-commentid=${comment.id}" th:if="${comment.authorization}" class="btn btn-sm btn-default">隐藏</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                            <span id="allcomment" th:attr="data-allcomment=${comments}"></span>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a href="javascript:void(0);" onclick="gotoTop();" class="btn btn-info">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<div th:replace="admin/_fragments :: footer" class="container-fluid"></div>
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+
+<!--模态框-->
+<script>
+    $('#editCommentModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget) // 获取触发事件的按钮
+        var commentid = button.data('whatever') // 解析whatever的内容
+        var model = $(this)
+
+        $.get("/blogcomment/commentjson",{id:commentid},function (data) {
+            model.find('.modal-title').text("昵称: " + data.nickname)
+            $("#editCommentValue").val(data.content)
+            $("#editCommentId").val(data.id)
+        },"json");
+    })
+
+    // 在模态框加载完成后获取焦点
+    $('#editCommentModal').on('shown.bs.modal', function (e) {
+        $("#editCo789mmentValue").focus()
+    })
+
+    //提交
+    function updateBlogComment() {
+
+        var id = $("#editCommentId").val()
+        var content = $("#editCommentValue").val()
+
+        $("#comments").load("/admin/comment/update",
+            {
+                "id" : id ,
+                "content" : content
+            },
+            function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success"){
+                    // 关闭模态框
+                    $("#closeModal").click()
+                }
+            }
+        )
+    }
+</script>
+
+<!--删除评论-->
+<script th:inline="javascript" type="text/javascript">
+
+    function deleteComment(obj) {
+
+        var sure = confirm("确认删除这条评论吗?");
+        if (sure){
+            /* var parentid = $(obj).parent().parent().children().last().text();
+            if (parentid == 0){
+                alert("此评论为")
+            } */
+            var id = $(obj).data("commentid");
+            $("#comments").load("/admin/comment/delete",
+                {"id" : id}
+            )
+        }
+    }
+    
+</script>
+
+<!--授权-->
+<script type="text/javascript">
+    
+    function changeAuthorization(obj) {
+
+            // 当前评论id
+            var commentid = $(obj).data("commentid")
+
+            $("#comments").load(
+                "/admin/comment/authorization",
+                {"commentid" : commentid}
+            )
+    }
+    
+</script>
+
+</body>
+</html>

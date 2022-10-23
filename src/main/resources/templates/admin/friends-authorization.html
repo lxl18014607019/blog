@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>友链授权</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+
+    .friend-picture {
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
+    }
+
+    .row {
+        margin: 0px;
+    }
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container-fluid" th:fragment="friendsfragment">
+    <div class="row">
+        <div class="col-md-12" id="friend">
+            <div class="panel">
+                <table class="table table-responsive table-striped table-hover text-center">
+                    <thead>
+                        <tr class="text-center">
+                            <td>主键</td>
+                            <td>网站标题</td>
+                            <td>网站图片</td>
+                            <td>状态</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="friend : ${friends}">
+                            <td th:text="${friend.id}">1</td>
+                            <td>
+                                <a target="_blank" th:href="${friend.url}"><span th:text="${friend.title}"></span></a>
+                            </td>
+                            <td>
+                                <img class="friend-picture" th:src="${friend.picture}">
+                            </td>
+                            <td>
+                                <label th:classappend="${friend.authorization == true ? 'label-success' : 'label-default'}" class="label" th:text="${friend.authorization == true ? '已授权' : '未授权'}"></label>
+                            </td>
+                            <td>
+                                <button th:attr="data-friendid=${friend.id},data-ok=true" onclick="authorization(this)" th:if="${friend.authorization == false}" class="btn btn-sm btn-success">授权通过</button>
+                                <button th:attr="data-friendid=${friend.id},data-ok=false" onclick="authorization(this)" th:if="${friend.authorization == true}" class="btn btn-sm btn-warning">取消授权</button>
+                                <button th:attr="data-friendid=${friend.id}" onclick="deleteFriend(this)" class="btn btn-sm btn-danger">删除</button>
+                                <button onclick="editFriend()" class="btn btn-sm btn-info">编辑</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function authorization(obj) {
+
+        var id = $(obj).data('friendid');
+        var status = $(obj).data('ok');
+        var really = null;
+
+        if (status) {
+            really = confirm("确认给予授权吗?");
+        } else {
+            really = confirm("确认取消授权吗?");
+        }
+
+        if (really) {
+            $("#friend").load('/admin/friend/authorization',{id : id, status : status})
+        }
+
+    }
+</script>
+
+<script>
+    
+    function deleteFriend(obj) {
+        var really = confirm("确认删除吗?删除后无法恢复!!")
+
+        if (!really) {
+            return
+        }
+
+        var id = $(obj).data("friendid");
+
+        $("#friend").load("/admin/friend/delete",{id:id})
+    }
+    
+</script>
+
+<script>
+
+    function editFriend() {
+        alert("开发中")
+    }
+
+</script>
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+</body>
+</html>

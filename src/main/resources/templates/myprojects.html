@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>首页</title>
+</head>
+
+<style>
+
+    .panel {
+        border: none;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .main-show {
+        margin: 10px;
+    }
+
+    .show {
+        margin-top: 20px;
+        height: 420px;
+    }
+
+    .description {
+        color: #3a5975;
+        transition: .3s;
+    }
+
+    .description:hover {
+        color: #e99337;
+        transition: .3s;
+    }
+
+    .show-img {
+        width: 100%;
+        height: 210px;
+    }
+
+    .tag {
+        color: #4e91e9;
+        font-weight: 700;
+    }
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}"><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-tag"></sapn>
+                    分类</a></li>
+                <li><a href="#">
+                    <sapn class="glyphicon glyphicon-align-left"></sapn>
+                    标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层-->
+<div th:replace="_fragments :: first-small">
+    <div class="div-background animated fadeInUpBig"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center animated zoomInUp">
+                <b><h1 class="text-color-white font-size-title color-title">Sunshine Boy</h1></b>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron lucency-sm box-color-white animated zoomIn">
+                    <div class="row text-center">
+                        <img class="img-size-xs img-circle text-border" src="../static/images/avatar/avatar2.jpg"
+                             th:src="@{/images/avatar/avatar2.jpg}">
+                        <div class="row">
+                            <h2 class="color-me">Renyi</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="color-title"> 一个热爱编程的阳光少年,也是一个终身学习者,希望能够汲取更多的知识，充实自己的生活，希望能在编程的道路上越走越远！!</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+<!--container-->
+<div class="container animated fadeInDown">
+    <!--row-->
+    <div class="row">
+        <!--col-->
+        <div class="col-md-12">
+            <!--panel-->
+            <div class="panel">
+                <!--标题-->
+                <div class="panel-heading">
+                    <h3 class="text-center">我的项目 <small>点击图片预览项目点击文字获取源码</small></h3>
+                    <p class="text-right">初始数据库表结构及基础数据在源码根目录下的数据库表结构文件夹中</p>
+                </div>
+            </div>
+
+            <div class="row main-show">
+               <div class="panel">
+                   <div class="row">
+                       <div class="col-md-4 show"  th:each="project : ${projects}">
+                           <a target="_blank" th:href="${project.getpOnlineLink()}">
+                               <!--图片-->
+                               <img  class="show-img" th:src="${project.getpPictureUrl()}">
+                           </a>
+                               <!--介绍-->
+                           <a target="_blank" th:href="${project.getpLinkUrl()}">
+                               <div class="description">
+                                   <h3 th:text="${project.getpTitle()}">个人博客</h3>
+                                   <p><span class="tag" th:text="${project.getpTag()}">简单 ● JavaWeb</span></p>
+                                   <p th:utext="${project.getpDescription()}">今天和家人看了几部我国在战争时期的电影, 非常震撼、热泪盈眶，同时也有很多感想,如果没有老一辈革命者的奉献,何来我今天的幸福生活呢? 如果不是先辈们抛头颅洒热血,</p>
+                               </div>
+                           </a>
+                       </div>
+
+                   </div>
+               </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!--底部-->
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+<!--小首图-->
+<script th:replace="_fragment-picture :: firstPicture-small"></script>
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js"
+            th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+</th:block>
+
+</body>
+</html>

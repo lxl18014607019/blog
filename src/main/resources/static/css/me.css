@@ -1,0 +1,925 @@
+
+/*@font-face {*/
+    /*　　font-family: '.萍方-简';*/
+    /*　　src: url('./PF.ttf');*/
+/*}*/
+
+
+body {
+    /*start.css-image: url("../images/start.css/bg02.jpg");*/
+    /*https://external-30160.picsz.qpic.cn/66eee1a41b1b0be4fde8b06dcdd9dfd6*/
+    /*    background-image: url("https://external-30160.picsz.qpic.cn/0f058a831b2b442248af453f2b43c667");*/
+    background-color: #f4f4f4;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    min-height: 800px !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Liberation Sans", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, SimSun, "WenQuanYi Zen Hei Sharp", sans-serif;
+    /*background-image: url("../images/background/white.jpg");*/
+}
+
+
+
+html, body {
+    /*-webkit-filter: grayscale(100%);filter:progid:DXImageTransform.Microsoft.BasicImage(graysale=1);*/
+    scroll-behavior: smooth !important;
+}
+
+a {
+    outline: none !important;
+}
+
+button {
+    outline: none !important;
+}
+
+
+/*img*/
+.img-size-least {
+    width: 20px;
+    height: 20px;
+}
+
+.img-size-tiny {
+    width: 80px;
+    height: 80px;
+}
+
+.img-size-xxxs {
+    width: 25px;
+    height: 25px;
+}
+
+.img-size-xxs {
+    width: 32px;
+    height: 32px;
+}
+
+.img-size-xs64 {
+    width: 64px;
+    height: 64px;
+}
+
+.img-size-xs {
+    width: 100px;
+    height: 100px;
+}
+
+.img-size-sm {
+    width: 150px;
+    height: 150px;
+}
+
+.img-size {
+    width: 200px;
+    height: 200px;
+}
+
+.img-size-lg {
+    width: 250px;
+    height: 150px;
+}
+
+.img-size-lg2 {
+    width: 340px;
+    height: 180px;
+}
+
+.img-size-all {
+    width: 100%;
+    height: 150px;
+}
+
+.img-size-100 {
+    width: 100%;
+    height: 100%;
+}
+
+.img-size-50 {
+    width: 50px;
+    height: 50px;
+}
+
+.img-size-40 {
+    width: 40px;
+    height: 40px;
+}
+
+.img-square {
+    width: 130px;
+    height: 130px;
+}
+
+.img-response-me {
+    padding: 10px 10px;
+    border-radius: 15px !important;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+/*透明*/
+.lucency-xs {
+    opacity: 0.9 !important;
+}
+
+.lucency-sm {
+    opacity: 0.8 !important;
+}
+
+.lucency-md {
+    opacity: 0.7 !important;
+}
+
+.lucency-bg {
+    opacity: 0.6 !important;
+}
+
+.lucency-lg {
+    opacity: 0.5 !important;
+}
+
+.lucency-only-box-all {
+    background: rgba(237, 253, 255, 0.0);
+}
+
+.lucency-only-box-sm {
+    background: rgba(237, 253, 255, 0.8);
+}
+
+.lucency-only-box {
+    background: rgba(237, 253, 255, 0.6);
+}
+
+.lucency-only-box-bg {
+    background: rgba(237, 253, 255, 0.4);
+}
+
+.lucency-only-box-lg {
+    background: rgba(237, 253, 255, 0.2);
+}
+
+.lucency-box-black {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.lucency-box-black-all {
+    background: rgba(0, 0, 0, 0.0);
+}
+
+/*圆角*/
+.rounded-no {
+    border-radius: 0px;
+}
+
+.rounded-size-xs {
+    border-radius: 5px;
+}
+
+.rounded-size-sm {
+    border-radius: 10px;
+}
+
+.rounded-size {
+    border-radius: 20px;
+}
+
+.rounded-size-bg {
+    border-radius: 50px;
+}
+
+.rounded-size-lg {
+    border-radius: 100px;
+}
+
+.rounded-size-sm-top {
+    border-radius: 10px 10px 0px 0px;
+}
+
+.rounded-size-sm-footer {
+    border-radius: 0px 0px 10px 10px;
+}
+
+
+/*text-color*/
+.text-color-red {
+    color: #a94442;
+}
+
+.text-color-white {
+    color: white !important;
+}
+
+.text-color-black {
+    color: black !important;
+}
+
+.text-color-blue {
+    color: blue;
+}
+
+.text-color-teal {
+    color: teal !important;
+}
+
+.text-color-gray {
+    color: gray;
+}
+
+/*margin*/
+/*none*/
+.margin-none {
+    margin: 0px 0px;
+}
+
+/*margin-rl*/
+.margin-rl {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/*left*/
+.margin-left-sm {
+    margin-left: 10px;
+}
+
+.margin-left {
+    margin-left: 20px;
+}
+
+.margin-left-bg {
+    margin-left: 30px;
+}
+
+.margin-left-lg {
+    margin-left: 40px;
+}
+
+.margin-left-100 {
+    margin-left: 100px;
+}
+
+/*right*/
+.margin-right-sm {
+    margin-right: 10px;
+}
+
+.margin-right {
+    margin-right: 20px;
+}
+
+.margin-right-bg {
+    margin-right: 30px;
+}
+
+.margin-right-lg {
+    margin-right: 40px;
+}
+
+/*top*/
+.margin-top-xs {
+    margin-top: -10px;
+}
+
+.margin-top-sm {
+    margin-top: 10px;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+.margin-top-middle {
+    margin-top: 18px;
+}
+
+.margin-top-bg {
+    margin-top: 30px;
+}
+
+.margin-top-lg {
+    margin-top: 40px;
+}
+
+.margin-bottom-xs {
+    margin-bottom: 5px;
+}
+
+.margin-bottom-sm {
+    margin-bottom: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-bg {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-lg {
+    margin-bottom: 50px !important;
+}
+
+/*padding*/
+.padding-right-xs {
+    padding-right: 5px;
+}
+
+.padding-left-xs {
+    padding-left: 5px;
+}
+
+.padding-none {
+    padding: 0px 0px 0px 0px;
+}
+
+/*box-shadow*/
+.shadow-gray-xs {
+    box-shadow: 0px 0px 3px #ba98b8;
+}
+
+/*text-shadow*/
+.text-shadow-black-xs {
+    text-shadow: 0px 0px 3px black;
+}
+
+.text-shadow-white-xs {
+    text-shadow: 0px 0px 2px white;
+}
+
+.text-shadow-white-sm {
+    text-shadow: 0px 0px 5px white !important;
+}
+
+.text-shadow-teal-xs {
+    text-shadow: 0px 0px 1px teal;
+}
+
+.text-shadow-gray-xs {
+    text-shadow: 0px 0px 1px gray;
+}
+
+/*radius*/
+.border-radius-xxs {
+    border-radius: 4px 4px 4px 4px !important;
+}
+
+.border-radius-xs {
+    border-radius: 5px 5px 5px 5px !important;
+}
+
+.border-radius-xs {
+    border-radius: 10px 10px 10px 10px !important;
+}
+
+.border-radius-sm {
+    border-radius: 50px 50px 50px 50px !important;
+}
+
+/*border*/
+.border-none {
+    border: none;
+}
+
+/*font-family*/
+.font-YOUYUAN {
+    font-family: 幼圆 !important;
+}
+
+.font-YAHEI {
+    font-family: "微软雅黑 Light" !important;
+}
+
+.font-HUAWENXINWEI {
+    font-family: 华文新魏;
+}
+
+.font-FANGZHENGSHUTI {
+    font-family: '方正舒体';
+}
+
+.font-HEITI {
+    font-family: 黑体;
+}
+
+.font-PF {
+    font-family: PingFang SC,".萍方-简" !important;
+}
+
+/*font-size*/
+.font-size-xs {
+    font-size: 10px;
+}
+
+.font-size-sm {
+    font-size: 15px !important;
+}
+
+.font-size-md {
+    font-size: 20px;
+}
+
+.font-size-bg {
+    font-size: 30px;
+}
+
+.font-size-title {
+    font-size: 80px;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+/*鼠标移入*/
+.mouseEnter {
+    position: relative;
+    top: 15px;
+    transition: 0.5s;
+}
+
+.mouseEnter:hover {
+    top: 0px;
+    transition: 0.5s;
+}
+
+.mouseEnter-scale {
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.mouseEnter-scale:hover {
+    transform: scale(1.05);
+}
+
+/*input-style*/
+.input-style-me {
+    border-radius: 5px;
+
+}
+
+/*box*/
+.box-size-sm {
+    height: 60px;
+    width: 60px;
+}
+
+.box-border-radius-circle {
+    border-radius: 30px;
+}
+
+
+/*a标签颜色*/
+.a-color-aaa {
+    color: #aaaaaa;
+}
+
+.a-color-black {
+    color: black;
+}
+
+.a-color-teal {
+    color: teal;
+}
+
+.a-color-333 {
+    color: #333333;
+}
+
+/*text-width*/
+.text-width-200 {
+    width: 200px;
+}
+
+/*a标签hover样式*/
+.a-hover-black {
+
+}
+
+.rotateImg {
+    transition: 1s;
+}
+
+.rotateImg:hover {
+    -webkit-transform: rotate(360deg);
+}
+
+
+/*box-background-color*/
+.box-background-color {
+    background-color: white;
+}
+
+.box-background-color-grey {
+    background-color: #c1c1c1 !important;
+}
+
+.box-background-color-blue {
+    background-color: #2aabd2 !important;
+}
+
+.box-background-color-white {
+    background-color: white !important;
+}
+
+/*position*/
+.is-position-abslute {
+    position: absolute;
+}
+
+/*hr*/
+.hr-width-60 {
+    width: 60%;
+}
+
+.hr-width-70 {
+    width: 70%;
+}
+
+.hr-width-80 {
+    width: 80%;
+}
+
+.hr-width-90 {
+    width: 90%;
+}
+
+/*btn*/
+.btn-circle-30 {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 15px;
+    border: none;
+    background-color: #aaaaaa;
+    transition: 0.5s;
+    color: #000;
+}
+
+.btn-circle-30:hover {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 15px;
+    border: none;
+    background-color: #746b6d;
+    transition: 0.5s;
+    color: white;
+}
+
+.outline-none {
+    outline: none!important;
+}
+
+.btn-me-side {
+    color: black;
+    width: 160px;
+    height: 40px;
+    border: 1px solid black;
+    outline: none;
+    transition: 0.75s;
+}
+
+.btn-me-side:hover {
+    color: black;
+    background-color: #aaaaaa;
+    transition: 0.75s;
+}
+
+.extend-btn {
+    background-color: #e5e5eb;
+}
+
+.extend-btn:hover {
+    background-color: #bbbbbb;
+}
+
+/*outline*/
+.outline-none {
+    outline: none;
+}
+
+/*index*/
+.z-index--2 {
+    z-index: -2;
+}
+
+.z-index--1 {
+    z-index: -1;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
+}
+
+.z-index-3 {
+    z-index: 3;
+}
+
+/*通用样式*/
+.date-margin {
+    margin-top: -12px;
+}
+
+a:focus {
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: none
+}
+
+.disab {
+    display: inline;
+}
+
+.display-inline {
+    display: inline;
+}
+
+.footer {
+    background-color: #2e383c;
+    border: none;
+    color: #aaaaaa;
+}
+
+/*首图层样式*/
+.color-title-gradual {
+    background-image: -webkit-linear-gradient(bottom, rgb(163, 163, 163), rgb(192, 192, 192));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.color-me-gradual {
+    background-image: -webkit-linear-gradient(bottom, rgb(166, 163, 169), rgb(190, 187, 191));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.color-me {
+    color: #f7f7f7;
+    text-shadow: 1px 1px 1px black !important;
+}
+
+.color-title {
+    color: #f7f7f7;
+    text-shadow: 1px 1px 1px black !important;
+}
+
+/*这个是分类/时间线/博客详情页面的首图样式*/
+
+
+.div-background-blog {
+    width: 100%;
+    /*    background-image: url("http://www.chaoshenyl.com/Uploads/202005/5ed0bba153ac0.jpg");*/
+    /*    background-image: url("/images/background/bg06.jpg");*/
+    position: absolute;
+    top: 0px;
+    height: 50%;
+    display: block;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin: 0px 0px;
+    padding: 0px 0px;
+}
+
+
+.div-background {
+    width: 100%;
+    /*    background-image: url("http://www.chaoshenyl.com/Uploads/202005/5ed0bba153ac0.jpg");*/
+    /*    background-image: url("/images/background/bg06.jpg");*/
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%!important;
+    display: block;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    min-height: 950px !important;
+}
+
+.img-background {
+    width: 100%;
+    /*    background-image: url("http://www.chaoshenyl.com/Uploads/202005/5ed0bba153ac0.jpg");*/
+    /*    background-image: url("/images/background/bg06.jpg");*/
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    display: block;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0px 0px;
+    padding: 0px 0px;
+}
+
+.text-border {
+    border: 2px solid #9d9d9d;
+}
+
+.box-color-white {
+    background-color: white;
+}
+
+.border-deepskyblue {
+    border: 2px solid deepskyblue;
+}
+
+.m-fixed {
+    position: fixed;
+    z-index: 1 !important;
+}
+
+.m-right-bottom {
+    bottom: 5px !important;
+    right: 5px !important;
+}
+
+.readeMore {
+    width: 120px;
+    height: 50px;
+    background-color: #83eeff;
+    transition: 1s;
+    border-radius: 50px;
+    outline: none;
+    border: none;
+}
+
+.readeMore:hover {
+    transition: 1s;
+    background-color: #00B5AD;
+}
+
+/*滚动条的宽度*/
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 9px;
+}
+
+/*外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果*/
+
+::-webkit-scrollbar-track {
+    width: 6px;
+    background-color: #aaaaaa;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+
+
+/*滚动条的设置*/
+
+::-webkit-scrollbar-thumb {
+    background-color: #635e5f;
+    background-clip: padding-box;
+    min-height: 28px;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+
+/*滚动条移上去的背景*/
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #7b7b7b;
+}
+
+/*评论的图片*/
+span > img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.nav-link {
+    border-bottom: none;
+    color: white !important;
+    transition: .5s;
+    /*text-shadow: 1px 1px 1px #464646;*/
+}
+
+.nav-link:hover {
+    color: skyblue !important;
+    transition: .5s;
+    /*text-shadow: 1px 1px 1px #cbcbcb;*/
+}
+
+.nav-active {
+    color: skyblue !important;
+    transition: .2s;
+    /*text-shadow: 1px 1px 1px #cbcbcb;*/
+}
+
+.nav-tranparent {background: rgba(237, 253, 255, 0.0)!important;}
+@media (max-width: 786px){
+    .nav-tranparent {background: rgb(48, 54, 55)!important;}
+}
+
+.hide-picture{display: block;}
+@media (max-width: 786px){
+    .hide-picture{display: none !important;}
+}
+
+.nav-me {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+@media (max-width: 786px){
+    .nav-me {
+        position: relative;
+    }
+}
+
+
+.me-info {
+    position: absolute;
+    top: 300px;
+}
+.first-picture-small {
+    position: relative;
+    height: 400px;
+}
+
+.first-picture-small-me-info {
+    position: absolute;
+    top: 150px;
+}
+
+/*手机端隐藏*/
+.phone-hide{display: none !important;}
+@media (min-width: 786px){
+    .phone-hide{display: inline !important;}
+}
+
+.clear {
+    clear: both;
+}
+
+
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block!important;
+}
+
+/*导航搜索样式*/
+.search-article-input {
+    border-right: none;
+}
+
+.search-article-input:focus {
+
+}
+
+.search-article-btn {
+    border-left: none;
+    margin-left: 0px !important;
+}
+
+.search-article-btn:hover {
+    background-color: white;
+}
+
+
+.jumbotron {
+    transition: .5s;
+}
+
+/*切换主题按钮*/
+.theme-switchover-button {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+    margin-top: 10px;
+    border-radius: 15px;
+    border: none;
+}
+
+
+/*隐藏元素*/
+.visibility-hide{
+    visibility:hidden;
+}
+

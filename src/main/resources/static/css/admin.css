@@ -1,0 +1,14 @@
+body{
+    background-image: url("https://img-blog.csdnimg.cn/7538b55077fe4be19e3ef4114153e49a.png");
+    font-size: 15px;
+}
+
+button{
+    outline: none;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    color: #fff;
+    background: #535353;
+}
+

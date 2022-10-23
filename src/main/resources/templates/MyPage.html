@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chuang Mei主页</title>
+    <link charset="UTF-8" href="../static/css/MyPage.css" th:href="@{/css/MyPage.css}" type="text/css" rel="stylesheet"/>
+    <link rel="Shortcut Icon" href="../static/images/avatar/avatar.jpg" th:href="@{/images/avatar/avatar.jpg}" type="image/x-icon"/>
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <script charset="UTF-8" src="../static/js/javascript.js" th:src="@{/js/javascript.js}"></script>
+
+    <style>
+        body {
+            background: radial-gradient(200% 100% at bottom center, #f7f7b6, #e96f92, #75517d, #1b2947);
+            background: radial-gradient(220% 105% at top center, #1b2947 10%, #75517d 40%, #e96f92 65%, #f7f7b6);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+            }
+            100% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+            }
+        }
+        .stars {
+            transform: perspective(500px);
+            transform-style: preserve-3d;
+            position: absolute;
+            bottom: 0;
+            perspective-origin: 50% 100%;
+            left: 50%;
+            animation: rotate 90s infinite linear;
+        }
+
+        .star {
+            width: 2px;
+            height: 2px;
+            background: #F7F7B6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0 -300px;
+            transform: translate3d(0, 0, -300px);
+            backface-visibility: hidden;
+        }
+        .table{
+            width: 400px;
+            height: 350px;
+            margin: 80px auto;
+        }
+        .table form{
+            width: 100%;
+        }
+        .table .name{
+            width: 280px;
+            margin: 20px auto 30px auto;
+            display: block;
+            height: 30px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(0,0,0,0.2);
+            text-indent: 0.5em;
+        }
+        .table .btn{
+            width: 100px;
+            height: 30px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border: none;
+            color: white;
+            margin: 0 auto;
+            display: block;
+        }
+
+        a:focus{text-decoration: none}
+        a:hover{text-decoration: none}
+    </style>
+</head>
+
+
+<body onload="show(),showusername()">
+
+        <div id="backgrounImg"></div>
+
+        <!--时间-->
+        <h1 id="nowDiv" class="now animated fadeInDown"></h1>
+
+        <!--导航栏-->
+        <div id="login" class="animated fadeInDown">
+            <span>&nbsp;</span>
+            <a href="#" th:href="@{/}">
+                <img id = "touxiang_img" alt="丢失" src="img/ico.jpg" th:src="@{/images/avatar/avatar.jpg}" width="40px" height="40px">
+            </a>
+            <span>&nbsp;</span>
+            <a href='javascript:void(0)' onclick="showOrhide();" id="usernameA" class="login_register" ></a>
+            <input hidden id="username" type="text" placeholder="✎ 设置名称..">&nbsp;<button hidden id="usernameBut" onclick="fun1();">确定</button>
+            <span>&nbsp;</span>
+        </div>
+
+        <!--反馈-->
+        <div id="login_1" class="animated fadeInDown">
+            <a class="login_register" href="#" onclick="mailsome1();"><!--这里反馈--></a>
+        </div>
+
+        <!--通过表单进行提交，不需要回车事件-->
+        <div id="search"  class="animated fadeInDown">
+            <!--标题-->
+            <p id="search_baidu">Chuang Mei</p>
+
+            <!--表单-->
+            <form action="https://www.baidu.com/s?tn=02003390_43_hao_pg&isource=infinity&iname=baidu&itype=web&ie=utf-8&wd=" target="_blank">
+                <!--搜索框-->
+                <input type="search" id="search_text" name="word" placeholder="请输入搜索内容...">
+            </form>
+        </div>
+
+        <div class="stars"></div>  <!--背景层，不要删除-->
+
+        <!-- 百度搜索框提示 -->
+        <script type="text/javascript" src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+        <script charset="gbk" src="../static/js/baidu.js" th:src="@{/js/baidu.js}"></script>
+        <!--<script charset="utf-8" src="js/javascript.js"></script>-->
+        <!-- 程序示例 -->
+       <script type="text/javascript">
+
+            //提示框JS地址:https://www.baidu.com/js/opensug.js
+            var params = {
+                "XOffset": -1, //提示框位置横向偏移量,单位px    -1
+                "YOffset": -5, //提示框位置纵向偏移量,单位px    -5
+                "width": 499, //提示框宽度，单位px  499
+                "fontColor": "#969696", //提示框文字颜色
+                "fontColorHI": "#696969", //提示框高亮选择时文字颜色
+                "fontSize": "20px", //文字大小
+                "fontFamily": "新宋体", //文字字体
+                "borderColor": "#DCDCDC", //提示框的边框颜色
+                "bgcolorHI": "#F5F5F5", //提示框高亮选择的颜色
+                "sugSubmit": true//在选择提示词条是是否提交表单
+            };
+            BaiduSuggestion.bind("search_text", params );
+
+            //$.get("https://api.no0a.cn/api/bing/0","",callbackpath,"json");
+       </script>
+
+
+        <!--    搜索框提示路径
+            http://suggestion.baidu.com/su?p=3&wd=这里是参数%E5%8F%AF%E4%BB%A5&ie=UTF-8&cb=
+        -->
+
+
+
+        <script>
+            $(document).ready(function(){
+                var stars=500;  /*星星的密集程度，数字越大越多*/
+                var $stars=$(".stars");
+                var r=800;   /*星星的看起来的距离,值越大越远,可自行调制到自己满意的样子*/
+                for(var i=0;i<stars;i++){
+                    var $star=$("<div/>").addClass("star");
+                    $stars.append($star);
+                }
+                $(".star").each(function(){
+                    var cur=$(this);
+                    var s=0.2+(Math.random()*1);
+                    var curR=r+(Math.random()*300);
+                    cur.css({
+                        transformOrigin:"0 0 "+curR+"px",
+                        transform:" translate3d(0,0,-"+curR+"px) rotateY("+(Math.random()*360)+"deg) rotateX("+(Math.random()*-50)+"deg) scale("+s+","+s+")"
+
+                    })
+                })
+            })
+        </script>
+    </body>
+    </html>

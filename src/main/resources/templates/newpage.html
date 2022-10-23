@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创美主页</title>
+    <link rel="Shortcut Icon" href="../static/images/avatar/avatar.jpg" th:href="@{/images/avatar/avatar.jpg}"
+          type="image/x-icon"/>
+    <link rel="stylesheet" href="../static/js/page/index.js" th:href="@{/js/page/index.js}">
+    <link rel="stylesheet" href="../static/css/page/indexStyle.css" th:href="@{/css/page/indexStyle.css}">
+    <link rel="stylesheet" href="../static/css/page/setting.css" th:href="@{/css/page/setting.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}">
+
+    <style>
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container-fluid {
+            height: 100%;
+        }
+
+        /*btn*/
+        .btn-circle-30 {
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            background-color: #aaaaaa;
+            transition: 0.5s;
+        }
+
+        .btn-circle-30:hover {
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 15px;
+            border: none;
+            background-color: #746b6d;
+            transition: 0.5s;
+        }
+
+        .margin-top-10 {
+            margin-top: 7px !important;
+        }
+
+        .text-color-black {
+            color: black;
+        }
+
+        .text-color-white {
+            color: white;
+        }
+
+        .filterbrightness-90 {
+            filter: brightness(90%);;
+        }
+
+        .filterbrightness-80 {
+            filter: brightness(80%);;
+        }
+
+        .groundglass {
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -ms-filter: blur(5px);
+            -o-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+    </style>
+
+    <style>
+        body {
+            background: radial-gradient(200% 100% at bottom center, #29000c, #12102c, #513159, #1b2947);
+            background: radial-gradient(220% 105% at top center, #1b2947 10%, #231039 40%, #51282f 65%, #060f2c);
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+            }
+            100% {
+                transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+            }
+        }
+
+        .stars {
+            transform: perspective(500px);
+            transform-style: preserve-3d;
+            position: absolute;
+            bottom: 0;
+            perspective-origin: 50% 100%;
+            left: 50%;
+            animation: rotate 90s infinite linear;
+        }
+
+        .star {
+            width: 2px;
+            height: 2px;
+            background: #F7F7B6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0 -300px;
+            transform: translate3d(0, 0, -300px);
+            backface-visibility: hidden;
+        }
+
+        .table {
+            width: 400px;
+            height: 350px;
+            margin: 80px auto;
+        }
+
+        .table form {
+            width: 100%;
+        }
+
+        .table .name {
+            width: 280px;
+            margin: 20px auto 30px auto;
+            display: block;
+            height: 30px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(0, 0, 0, 0.2);
+            text-indent: 0.5em;
+        }
+
+        .table .btn {
+            width: 100px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: none;
+            color: white;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .wisdom {
+            width: 100%;
+            position: absolute;
+            bottom: 50px;
+            margin-right: 50%;
+            text-align: center;
+        }
+
+        .wisdom-text {
+            color: white;
+            font-size: 14px;
+            text-shadow: 0 5px 5px 5px grey;
+        }
+
+
+
+
+    </style>
+
+</head>
+<body onload="currentTime()">
+
+<!--容器-->
+<div class="container-fluid animated fadeIn">
+
+
+    <!--导航栏-->
+    <div class="row margin-top-5 animated fadeIn">
+
+        <div class="col-md-11">
+            <!--left-->
+            <!--头像-->
+            <a href="/">
+                <img th:src="${user.avatar}" src="../images/avatar/avatar.jpg" class="avatar circle-radius-30"
+                     alt="图片丢失">
+            </a>
+            <!--昵称-->
+            <span class="nickname font-HUAWENXINWEI font-size-md margin-left-10 text-shadow-grey"
+                  th:text="${user.nickName}">Renyi</span>
+
+            <!--right-->
+            <div class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-left" role="search">
+                    <!--<div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>-->
+                    <!--<button type="button" class="btn btn-xs btn-primary font-HEITI font-size-md">⚙</button>-->
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-1 text-right margin-top-10">
+            <button class="btn-circle-30" onclick="theme()"
+                    th:classappend="${user.theme == 'black' ? 'text-color-black' : 'text-color-white'}">
+                <span class="glyphicon glyphicon-asterisk"></span>
+            </button>
+        </div>
+
+    </div>
+
+    <!--时间-->
+    <div class="row margin-top-100 animated fadeInDown">
+        <!--计时-->
+        <h1 id="currentTime" class="currentTime text-center font-HEITI text-color-white text-shadow-grey"></h1>
+    </div>
+
+    <!--搜索框-->
+    <div class="row text-center animated fadeInDown">
+        <input id="search" type="search"
+               th:classappend="${user.theme == 'black' ? 'input-search' : 'input-search-white'}" class=""
+               placeholder="search">
+    </div>
+
+    <!--提示框-->
+    <div class="row" id="suggestionTable" th:fragment="suggestionFragment">
+        <div class="col-md-12 text-center"><!--flipInX-->
+            <span hidden id="themeID" th:text="${user.theme}"></span>
+            <div hidden id="suggestion"
+                 th:classappend="${user.theme == 'black' ? 'suggestionText' : 'suggestionText-white'}"
+                 class="animated flipInX text-center circle-radius-10">
+                <div>&nbsp;</div>
+
+                <table id="suggestion_table"
+                       th:classappend="${user.theme == 'black' ? 'suggestionTable' : 'suggestionTable-white'}"
+                       class="text-left margin-left-10">
+                    <tr>
+                        <td id="translate" onclick="translateWord(this)">翻译: hello world</td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            越
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            努
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            力
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            越
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            幸
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onclick="searchSuggestion(this)">
+                            运
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <!--背景图片-->
+    <div class="row">
+        <img th:if="${'随机' == user.getSearchBg()}"
+             th:classappend="${user.theme == 'black' ? 'filterbrightness-80' : 'filterbrightne90'}" id="backgroundImg"
+             src="https://retiehe.com/backend/bing/1080p" class="index-image"/>
+
+        <img th:if="${null != user.getSearchBg()} and ${'' != user.getSearchBg()} and ${'星空' != user.getSearchBg()} and ${'随机' != user.getSearchBg()}"
+             th:classappend="${user.theme == 'black' ? 'filterbrightness-80' : 'filterbrightne90'}" id="backgroundImg"
+             th:src="${user.getSearchBg()}" class="index-image"/>
+    </div>
+
+    <!--背景层-->
+    <div th:if="${'星空' == user.getSearchBg()}" class="stars"></div>
+
+</div>
+
+
+<!--script-->
+<!--script-->
+<script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+<script src="../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script src="../static/js/page/index.js" th:src="@{/js/page/index.js}"></script>
+<script>
+    $(document).ready(function () {
+        var stars = 1000;  /*星星的密集程度，数字越大越多*/
+        var $stars = $(".stars");
+        var r = 1000;   /*星星的看起来的距离,值越大越远*/
+        for (var i = 0; i < stars; i++) {
+            var $star = $("<div/>").addClass("star");
+            $stars.append($star);
+        }
+        $(".star").each(function () {
+            var cur = $(this);
+            var s = 0.2 + (Math.random() * 1);
+            var curR = r + (Math.random() * 300);
+            cur.css({
+                transformOrigin: "0 0 " + curR + "px",
+                transform: " translate3d(0,0,-" + curR + "px) rotateY(" + (Math.random() * 360) + "deg) rotateX(" + (Math.random() * -50) + "deg) scale(" + s + "," + s + ")"
+
+            })
+        })
+    })
+
+
+
+</script>
+<script>
+    function theme() {
+        //theme
+        var text = $("#themeID").text();
+        if (text == 'black')
+            text = 'white'
+        else
+            text = 'black'
+        //发送请求
+
+        $("#suggestionTable").load('/theme', {
+                'theme': text
+            },
+            function (success) {    //刷新
+                //success > 1 即为成功
+                window.location.reload()
+            }
+        );
+    }
+</script>
+
+
+<!--右键事件-->
+<!--<script>-->
+    <!--function click(){-->
+        <!--if(event.button==2){-->
+            <!--alert( '本网站欢迎您 !!');-->
+        <!--}-->
+    <!--}-->
+    <!--document.onmousedown=click-->
+<!--</script>-->
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>分类</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .btn-active{
+        background-color: #cbcbd1;!important;
+    }
+    .btn-blue-me{
+        background-color: #a3bccd;
+        color: white;
+        transition: 0.5s;
+    }
+    .btn-blue-me:hover{
+        background-color: #38abbf;
+        color: white;
+        transition: 0.5s;
+    }
+    .badge{
+        background-color: grey!important;
+    }
+
+    .date-margin{
+        margin-top: -12px;
+    }
+    a:focus{text-decoration: none}
+    a:hover{text-decoration: none}
+
+    .disab{
+        display: inline;
+    }
+
+    .footer{
+        background-color: #2e383c;
+        border: none;
+        color: #aaaaaa;
+    }
+
+    .border-color{
+        border-color: teal;
+    }
+
+    .nature{
+        border: none;
+        background-color: #83eeff;
+        z-index: 1;
+    }
+
+    .firstpicture-index{
+        width: 100%;
+        z-index: -1;
+        position: absolute;
+        top: 0px;
+        height: 500px;
+    }
+
+    .recommendImg{
+        width: 1200px;
+        height: 200px;
+    }
+
+    .blog-size-img{
+        height: 180px;
+    }
+
+    .player{
+        background-color: gainsboro;
+    }
+
+    .recommend-content{
+        max-height: 275px;
+        overflow: hidden;
+        overflow-x: hidden;
+        transition: 0.75s!important;
+        border-radius: 0 0 10px 10px!important;
+    }
+
+    .right-shadow {
+        box-shadow: 0px 1px 10px 1px #e8e8e8;
+        border-radius: 10px;
+    }
+
+    .list-group-item {
+        border: none;
+    }
+
+    .recommend-content:hover{
+        overflow: scroll;
+        overflow-x: hidden;
+        transition: 0.75s!important;
+    }
+
+    .list-fade-in{
+        /*background-color: white!important;*/
+        transition: 0.5s!important;
+    }
+
+    .list-fade-in:hover{
+        background-color: #cdcdcd !important;
+        transition: 0.5s!important;
+    }
+
+    .extend-btn{
+        background-color: #e5e5eb;
+    }
+
+    .extend-btn:hover{
+        background-color: #bbbbbb;
+    }
+
+    .recommend {
+        border-radius: 10px;
+    }
+
+    .list-group > p {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .des-well {
+        border-radius: 10px;
+    }
+
+    .aplayer {
+        border-radius: 10px!important;
+    }
+
+    .container .jumbotron, .container-fluid .jumbotron {
+        border-radius: 10px;
+    }
+
+    .border-radius-10 {
+        border-radius: 8px;
+    }
+    @media (max-width: 768px){.margin-rl-phone{margin-left: 10px; margin-right: 10px}}
+    @media (max-width: 768px){.buttons{ margin-right: 0px!important;}}
+</style>
+
+<style>
+    /*手机端加长小首图*/
+    @media (max-width: 768px){ .div-background-blog{height: 55%;  }}
+    .sjbdmap{display: inline;}
+    @media (max-width: 1200px){.sjbdmap{display: none !important;}}
+    .phone-mr{margin-right: -15px;}
+    @media (max-width: 1200px){.phone-mr{margin-right: 0 !important;}}
+
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(2)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层-->
+<div th:replace="_fragments :: first-small">
+    <div class="div-background animated fadeInUpBig"></div>
+    <br><br><br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center animated zoomInUp">
+                <b><h1 class="text-color-white font-size-title color-title">Sunshine Boy</h1></b>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="row">
+            <div class="col-md-12 animated zoomIn ">
+                <div class="jumbotron lucency-sm box-color-white">
+                    <div class="row text-center">
+                        <img class="img-size-xs img-circle text-border" src="../static/images/avatar/avatar2.jpg" th:src="@{/images/avatar/avatar2.jpg}">
+                        <div class="row">
+                            <h2 class="color-me">Renyi</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="color-title"> 一个热爱编程的阳光少年,也是一个终身学习者,希望能够汲取更多的知识，充实自己的生活，希望能在编程的道路上越走越远！!</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--内容区域-->
+<div class="container animated fadeInUp">
+
+
+    <div id="typeFlush" th:fragment="typeFlushFragment">
+        <input type="hidden" th:value="${typeId}" id="typeIdValue">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="margin-top-lg phone-mr">
+                    <div class="panel panel-body right-shadow  margin-bottom-sm border-radius-xs box-background-color-white type-types">
+                        <!--全局刷新-->
+                        <!--<div class=" box-background-color-white text-center" id="contentId">-->
+                        <!--&lt;!&ndash;分类按钮区域&ndash;&gt;-->
+                        <!--<span th:each="type : ${typesAndBlogs}">-->
+                        <!--<a th:classappend="${typeId == type.id} ? 'btn-active'" href="#" th:href="|@{/types}?id=${type.id}|" class="btn btn-default margin-top-sm" style="width: 120px; outline: none; border: none;">-->
+                        <!--<span th:text="${type.name}"></span> <span class="badge" th:text="${#arrays.length(type.blogList)}">5</span>-->
+                        <!--</a>-->
+                        <!--</span>-->
+                        <!--</div>-->
+                        <!--局部刷新-->
+                        <div class=" box-background-color-white text-center type-types" id="contentId">
+                            <!--分类按钮区域-->
+                            <span th:each="type : ${typesAndBlogs}">
+                                <button th:classappend="${typeId == type.id} ? 'btn-active'" onclick="getType(this)" th:attr="data-typeId=${type.id}" class="btn btn-default margin-top-sm" style="width: 120px; outline: none; border: none;">
+                                <span th:text="${type.name}"></span> <span class="badge" th:text="${#arrays.length(type.blogList)}">5</span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--搜索的类型展示-->
+        <h3 id="TypeArticleTitle" th:if="${typeTitle} != null" class="text-color-teal" th:text="${typeTitle}">Java</h3>
+        <!--搜索结果展示-->
+            <div class="lucency-only-box-all">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="lucency-only-box-all" th:each="blog,iterStat : ${blogs}">
+
+                            <br>
+                            <div class="jumbotron box-background-color right-shadow">
+
+                                <div class="row">
+
+                                    <!--图片区域-->
+                                    <div class="col-md-5 text-center margin-top blog-size-img">
+                                        <a target="_blank" href="#" th:href="@{/blogs/{id}(id=${blog.getId()})}">
+                                            <img class="img-size-100 border-radius-10 mouseEnter-scale" src="../static/images/background/bg02.jpg" th:src="${blog.getFirstPicture()}">
+                                        </a>
+                                    </div>
+                                    <!--内容区域-->
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <!--内容-->
+                                            <div class="col-md-12">
+                                                <a target="_blank" th:href="@{/blogs/{id}(id=${blog.getId()})}" href="#"><h3 class="font-PF" th:text="${blog.getTitle()}">Java语言的优点</h3></a>
+                                                <span  style="line-height: 25px!important;" class="font-PF" th:utext="${blog.getDescription()}">Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。Java语言作为静态面向对...</span>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <!--日期-->
+                                        <div class="row">
+                                            <!--作者信息-->
+                                            <div class="col-md-4 col-xs-2">
+                                                <img src="../static/images/avatar/avatar.jpg" th:src="${user.avatar}" class="img-size-xxs img-circle">
+                                                <a class="a-color-teal type-author sjbdmap pcbdmap" href="#" th:href="@{/about}"><span th:text="${user.nickName}">任一</span></a>
+                                            </div>
+                                            <br>
+                                            <!--更新日期-->
+                                            <div class="col-md-5 col-xs-5 date-margin">
+                                                <span class="glyphicon glyphicon-bookmark text-color-teal"></span>
+                                                <span th:text="${blog.createTime}"> 2001-05-02</span>
+                                            </div>
+                                            <!--类型-->
+                                            <div class="col-md-3 col-xs-5 date-margin">
+                                                <!--<a href="#" th:href="|@{/types}?id=${blog.getType().id}|" class="btn btn-default btn-xs lucency-only-box-all text-color-teal border-color">
+                                                    <span th:text="${blog.getType().getName()}"></span></a>-->
+                                                <a href="#" th:href="|@{/types}?id=${blog.getType().id}|" class=" btn-default btn-sm extend-btn">
+                                                    <span th:text="${blog.getType().name}">Java</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<hr>-->
+                        </div>
+                        <!--分页-->
+                        <div class="panel-body paging  lucency-only-box-sm border-radius-xs" th:if="${pager.pageQuantity} > 1">
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6">
+                                    <!--&lt;!&ndash;th:href="|@{/}?stratpage=1|" &ndash;&gt;-->
+                                    <a th:if="${pager.startPage} > 1" onclick="paging(this);" th:attr="data-pageStart = 1" class="btn btn-info">首页</a>
+                                    <!--&lt;!&ndash;th:href="|@{/}?startPage=${pager.getPageQuantity()}|"&ndash;&gt;-->
+                                    <a th:if="${pager.getPageQuantity()} > ${pager.startPage}" onclick="paging(this);" th:attr="data-pageStart = ${pager.getPageQuantity()}" class="btn btn-info">尾页</a>
+                                </div>
+
+                                <div class="col-md-6 col-xs-6 text-right">
+                                    <!--&lt;!&ndash;th:href="|@{/}?startPage=${pager.startPage - 1}|"&ndash;&gt;-->
+                                    <button th:if="${pager.startPage - 1} >= 1" onclick="paging(this);" class="btn btn-info" th:attr="data-pageStart=${pager.startPage - 1}">&lt;</button>
+                                    <!--&lt;!&ndash;th:href="|@{/}?startPage=${pager.startPage + 1}|" &ndash;&gt;-->
+                                    <button th:if="${pager.startPage + 1} <= ${pager.getPageQuantity()} and ${pager.getPageQuantity()} != 0" onclick="paging(this);" class="btn btn-info" th:attr="data-pageStart = ${pager.startPage + 1}">&gt;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">
+                            <label class="label label-info font-HUAWENXINWEI">
+                                <span th:text="${pager.startPage}"></span>
+                                /
+                                <span id="quantityspan" th:text="${pager.getPageQuantity()}"></span>
+                            </label>
+                        </p>
+                        <p class="text-right" th:if="${pager.pageQuantity} > 1">
+                            <input id="mepagestart" placeholder="页数" class="form-control" type="text" style="width: 60px;display: inline!important;">
+                            <button onclick="sikipPage();" id="skip-btn" class="btn btn-default" style="margin-bottom: 1px">跳转</button>
+                        </p>
+                    </div>
+                    <!--右边区域-->
+                    <div class="col-md-2 margin-rl-phone" >
+                        <!--推荐-->
+                        <div class="row recommend">
+                            <div class="right-shadow">
+                                <div class="list-group margin-top">
+                                    <p class="list-group-item box-background-color-grey index-recommend">
+                                        <span class="glyphicon glyphicon-bookmark"></span>
+                                        推荐文章<span class="badge" th:text="${recommendBlog.size()}" style="background-color: #aaaaaa">42</span>
+                                    </p>
+                                    <div class="recommend-content">
+                                        <a class="list-group-item list-fade-in" th:if="${recommendBlog.size() > 0}" th:href="@{/blogs/{id}(id=${recommend.id})}" th:each="recommend,iterStat : ${recommendBlog}">
+                                            <span th:text="|${iterStat.count}.|">1</span>
+                                            <span th:text="${recommend.title}"></span>
+                                        </a>
+                                    </div>
+
+                                    <p th:if="${recommendBlog.size() == 0}">
+                                        <a class="list-group-item" >
+                                            暂无推荐文章
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--分类-->
+                        <div class="row">
+                            <div class="right-shadow">
+                                <div class="list-group margin-top">
+                                    <p class="list-group-item box-background-color-grey index-types">
+                                        <span class="glyphicon glyphicon-bookmark"></span>
+                                        分类<span class="badge" th:text="${types.size()}" style="background-color: #aaaaaa">42</span>
+                                    </p>
+                                    <div class="recommend-content">
+                                        <a class="list-group-item list-fade-in" th:if="${types.size() > 0}" th:href="|@{/types}?id=${type.id}|" th:each="type,iterStat : ${types}">
+                                            <span th:text="|${iterStat.count}.|">1</span>
+                                            <span th:text="${type.name}"></span>
+                                        </a>
+                                    </div>
+
+                                    <p th:if="${types.size() == 0}">
+                                        <a class="list-group-item" >
+                                            暂无分类
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--介绍-->
+                        <div class="row">
+
+                            <div class="well des-well right-shadow type-me" style="border: none">
+                                <div class="text-center">
+                                    <div class="row">
+                                        <img src="../static/images/avatar/avatar.jpg" th:src="${user.avatar}" class="img-size-xs64 img-circle text-border">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12" style="margin: 0px">
+                                            <p class="text-center">
+                                            <h5 th:text="${pager.getTotalPage()}">33</h5>
+                                            <h5>篇文章</h5>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+<!--工具条-->
+<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+        <a href="javascript:void(0);" onclick="gotoTop();" class="btn btn-info">
+            <span class="glyphicon glyphicon-upload"></span>
+        </a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+
+<th:block th:replace="_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+<!--小首图-->
+<script th:replace="_fragment-picture :: firstPicture-small">
+
+</script>
+
+<script>
+    var ap = new APlayer
+    ({
+        element: document.getElementById('player1'),
+        narrow: false,
+        autoplay: false,
+        showlrc: true,
+        music: {
+            title: '世间美好与你环环相扣',
+            author: '柏松',
+            url: 'http://music.163.com/song/media/outer/url?id=1363948882.mp3',
+            pic: 'http://p2.music.126.net/DK1_4sP_339o5rowMdPXdw==/109951164071024476.jpg?param=300x310'
+        }
+    });
+</script>
+
+<script>
+
+    //局部刷新
+    function getType(obj) {
+        var id = $(obj).data("typeid")
+        //发送请求
+        $("#typeFlush").load(
+            "/pageType",
+            {
+                "id" : id,
+                "startPage" : 1
+            },
+            function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success"){
+
+                }
+            }
+        );
+    }
+
+    function sikipPage() {
+        var pageStart = $("#mepagestart").val();
+        var pageQuantity = $("#quantityspan").text();
+        pageStart = parseInt(pageStart);
+        pageQuantity = parseInt(pageQuantity);
+
+        if (pageStart >= 1 && pageStart <= pageQuantity){
+            //发送请求
+            $("#typeFlush").load(
+                "/pageType",
+                {
+                    "id" : $("#typeIdValue").val(),
+                    "startPage" : pageStart
+                },
+                function (responseTxt, statusTxt, xhr) {
+                    if (statusTxt == "success"){
+                        var scroll_offset = $("#TypeArticleTitle").offset(); //得到pos这个div层的offset，包含两个值，top和left
+                        $("body,html").animate({
+                            scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+                        },0);
+                        return false;
+                    }
+                }
+            );
+        } else{
+            $("#mepagestart").val("");
+            $("#mepagestart").focus();
+            return;
+        }
+
+    }
+
+    function paging(Obj) {
+
+        //pageStart
+        var pageStart = $(Obj).data("pageStart");
+        //发送请求
+        $("#typeFlush").load(
+            "/pageType",
+            {
+                "id" : $("#typeIdValue").val(),
+                "startPage" : pageStart
+            },
+            function (responseTxt, statusTxt, xhr) {
+                if (statusTxt == "success"){
+                    var scroll_offset = $("#TypeArticleTitle").offset(); //得到pos这个div层的offset，包含两个值，top和left
+                    $("body,html").animate({
+                        scrollTop:scroll_offset.top //让body的scrollTop等于pos的top，就实现了滚动
+                    },0);
+                    return false;
+                }
+            }
+        );
+
+    }
+</script>
+
+<script>
+    /*平滑滚动*/
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+</script>
+</body>
+</html>

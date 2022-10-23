@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>文章内容</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+    .bootstrap-select .dropdown-toggle:focus, .bootstrap-select>select.mobile-device:focus+.dropdown-toggle {
+         outline: none!important;
+         outline: none!important;
+    }
+
+    .blogs-panel-heading {
+        background-image: url("https://img-blog.csdnimg.cn/20210412101935485.jpg");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(2)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--内容部分-->
+<div class="container animated zoomInUp lucency-xs">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel" style="border:none;">
+                <!--panel-heading: 搜索部分-->
+                <div class="panel-heading blogs-panel-heading">
+                    <h2 class="margin-top font-HUAWENXINWEI text-color-white">全部文章</h2>
+                    <!--新增-->
+                    <a href="#" th:href="@{/admin/bloginput}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> 写博客</a>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="#" class="form-inline" th:action="@{/admin/searchblog}">
+                                <!--标题-->
+                                <input type="text" name="searchtitle" class="form-control text-width-200" placeholder="输入标题...">
+                                <!--select-->
+                                <select id="select" class="selectpicker" data-live-search="true" name="searchtypeid" data-container="body" data-size="10">
+                                    <option value="0" selected="selected">不选择分类</option>
+                                    <div th:each="type : ${types}">
+                                        <option value="1" th:value="${type.id}"><span th:text="${type.name}">编程</span></option>
+                                        <!--/*-->
+                                        <option value="2">英语</option>
+                                        <option value="3">健身</option>
+                                        <!--*/-->
+                                    </div>
+                                </select>
+                                <!--推荐-->
+                                <!--<input id="rem" type="checkbox" name="searchrecommend">-->
+                                <!--<label for="rem">推荐</label>-->
+                                <!--推荐-->
+                                <select id="selectRecommend" class="selectpicker"  name="searchrecommend" data-container="body" data-size="10" style="width: 60px">
+                                    <option value="0" selected="selected">不选择推荐</option>
+                                    <div>
+                                        <option value="1">推荐文章</option>
+                                        <option value="-1">不推荐文章</option>
+                                    </div>
+                                </select>
+                                <!--提交按钮-->
+                                <button class="btn btn-success" id="sub_search_btn">
+                                    <sapn class="glyphicon glyphicon-search"></sapn>
+                                    搜索
+                                </button>
+                                <button class="btn btn-default" onclick="customSearch();" type="button">SQL查询</button>
+                            </form>
+
+                            <form hidden id="customsearchID" action="/admin/customsearch" method="post" class="form-inline">
+                                <input id="sqltextID" type="text" name="sql" class="form-control" style="width: 325px;" placeholder="自定义SQL语句...">
+                                <input type="button" value="查询" class="btn btn-default" onclick="submitCustomSearch(this)">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!--搜索部分结束-->
+                <input type="hidden" name="pageStart">
+                <div id="blogscontainer">
+                    <div th:fragment="blogsListblogfragment">
+                        <!--panel-body表格展示文章部分-->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table table-responsive">
+                                        <table class="table table-hover">
+                                            <!--表头-->
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>标题</th>
+                                                <th>类型</th>
+                                                <th>推荐</th>
+                                                <th>更新时间</th>
+                                                <th>操作 <a href="#" th:href="@{/admin/batchOperation}" class="btn btn-xs btn-info font-YAHEI">批量操作</a></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="blog,iterStat : ${blogs}">
+                                                <td th:text="${iterStat.count}"></td>
+                                                <td th:text="${blog.getTitle()}">Java语言的优点</td>
+                                                <td th:text="${blog.getType().name}">Java</td>
+                                                <td th:text="${blog.getRecommend()} ? '是' : '否'">是</td>
+                                                <td th:text="${blog.getUpdatetime()}">2020-07-25</td>
+                                                <td>
+                                                    <a th:href="@{/admin/bloginput/{id}(id=${blog.getId()})}" href="javascript:0" class="btn btn-primary btn-sm margin-right-sm"><span class="glyphicon glyphicon-cog"> 编辑</span></a>
+                                                    <a th:href="@{/admin/deleteblog/{id}(id=${blog.getId()})}" href="javascript:0" class="btn btn-danger btn-sm margin-right-sm"><span class="glyphicon glyphicon-floppy-remove"> 删除</span></a>
+
+                                                    <!--加密博客-->
+                                                    <button data-toggle="modal" data-target="#encryptionBlog" th:attr="data-whatever=${blog.id}" class="btn btn-info btn-sm ">
+                                                        <span class="glyphicon glyphicon-floppy-remove"> 加密</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--表格展示文章部分结束-->
+
+                        <!--panel-footer分页部分-->
+                        <div class="panel-footer" th:if="${pager != null}">
+                            <nav aria-label="...">
+                                <ul class="pager">
+
+                                    <div class="text-left">
+
+                                        <!--首尾页-->
+                                        <button onclick="sendRequest(this)" th:if="${pager.startPage} > 1" type="button" class="btn btn-primary btn-sm blogs_page_btn" th:attr="data-pageStart=${1}">
+                                            首页
+                                        </button>
+
+                                        <button onclick="sendRequest(this)" th:if="${pager.startPage} != ${pager.pageQuantity}" type="button" class="btn btn-primary btn-sm blogs_page_btn" th:attr="data-pageStart=${pager.pageQuantity}">
+                                            尾页
+                                        </button>
+
+
+                                        <!--上下页-->
+                                        <button onclick="sendRequest(this)" th:if="${pager.startPage} > 1" type="button" class="btn btn-primary btn-sm blogs_page_btn" th:attr="data-pageStart=${pager.startPage - 1}">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                            上一页
+                                        </button>
+                                        <button onclick="sendRequest(this)" th:if="${pager.startPage} < ${pager.pageQuantity}" type="button" class="btn btn-primary btn-sm blogs_page_btn" th:attr="data-pageStart=${pager.startPage + 1}">
+                                            下一页
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                        <li class="next"><a href="#" th:href="@{/admin/bloginput}" class="btn btn-default">写博客</span></a></li>
+                                        <span th:text="|${pager.startPage}/${pager.pageQuantity}|"></span>
+
+                                    </div>
+
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--panel-footer分页部分-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 模态框 -->
+<div class="modal fade" id="encryptionBlog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">加密博客</h4>
+            </div>
+            <div class="modal-body">
+                <!--表单-->
+                <div>
+                    <!--存储博客主键-->
+                    <input class="form-control" readonly  id="encryptBlogID" type="text">
+                    <br>
+                    <!--存储值-->
+                    <input onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" id="encryptBlogPassword" type="text" placeholder="加密密码(为空则不加密)...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="encryptBlog()">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<div th:replace="admin/_fragments :: footer" class="container-fluid"></div>
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+
+<!--初始化select-->
+<script type="text/javascript">
+    $('select').selectpicker();
+</script>
+
+<script>
+
+    function sendRequest(btnObj) {
+        //给blogscontainer赋值
+        $("[name='pageStart']").val($(btnObj).data("pageStart"));
+        postReqeust();
+    }
+
+    function postReqeust() {
+        $("#blogscontainer").load("/admin/blogspage",
+            {
+                "pageStart" : $("[name='pageStart']").val()
+            }
+        );
+    }
+
+    //自定义查询
+    function customSearch() {
+
+        if ($("#customsearchID").is(":hidden"))
+            $("#customsearchID").show(300);
+        else
+            $("#customsearchID").hide(300);
+    }
+
+    //提交自定义查询
+    function submitCustomSearch(obj) {
+
+        //sql
+        var sqlvalue = $("#sqltextID");
+
+        if (sqlvalue.val()!=null && sqlvalue.val() != ''){
+            obj.type="submit";
+            obj.onclick;
+        } else{
+            sqlvalue.prop("placeholder","sql语句不能为null...");
+            sqlvalue.focus();
+        }
+    }
+
+</script>
+
+
+<!--模态框-->
+<script>
+    // 模态框展示后执行
+    $('#encryptionBlog').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget) // 获取触发事件的按钮
+        var blogid = button.data('whatever') // 解析whatever的内容
+        var model = $(this)
+
+        $("#encryptBlogID").val(blogid)
+
+        /**
+         * 向后台发送请求 通过 blogid 查询 title 和 文章密码
+         * 后台返回的数据: title password
+         */
+        $.get("/blog/simpleblog",{blogid:blogid},function (data) {
+            model.find('.modal-title').text("加密文章: " + data.title)
+
+            $("#encryptBlogPassword").val(data.password)
+
+        },"json");
+
+    })
+
+    // 模态框加载完成
+    $('#encryptionBlog').on('shown.bs.modal', function (e) {
+        $("#encryptBlogPassword").focus()
+    })
+
+    function encryptBlog() {
+
+        // blogid
+        var blogid = $("#encryptBlogID").val()
+
+
+        if(blogid == null || blogid == '' || blogid == undefined){
+            alert("博客主键为空,请检查 [blogs.html] 模板的 [encryptBlog()] 函数!")
+            return;
+        }
+
+        $.get("/blog/encryptByBlogId",{
+            blogid : $("#encryptBlogID").val(),
+            password : $("#encryptBlogPassword").val()
+        },function (data) {
+            console.log(data);
+            if (data.status > 0) {
+                $("#closeModal").click()
+            }else {
+                alert(data.responseText)
+            }
+        },"json")
+    }
+    
+</script>
+
+</body>
+</html>

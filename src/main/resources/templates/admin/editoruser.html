@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>文章内容</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+
+    .text-border-radius{
+        border-radius: 50px 50px 50px 50px !important;
+    }
+
+    .button-width{
+        width: 130px;
+    }
+    /*border*/
+    .border-no{
+        border: none;
+    }
+
+    .text-shadow{
+        text-shadow: 0px 0px 3px black;
+    }
+
+    .show-info-btn {
+        border-radius: 20px;
+        border: none;
+    }
+
+</style>
+
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(0)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container animated zoomIn">
+
+    <div class="col-md-12">
+        <div class="panel panel-success border-no lucency-xs" >
+            <div class="panel-heading back-panel" id="panelhead">
+                <img src="/images/avatar/avatar.jpg" th:src="${user.getAvatar()}" class="img-size-xs img-circle">
+                <br>
+                <br>
+                <a href="#" th:href="@{/admin/changepassword}" class="btn btn-success">修改密码</a>
+                <button id="showOrHideInfo" class="btn btn-success show-info-btn" onclick="showOrHideInfo(this)">显示信息</button>
+            </div>
+
+            <div class="row">
+                <div class="panel-body">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h3 class="">编辑个人信息</h3>
+                        <hr>
+                        <form action="#" th:action="@{/admin/updateuser}" method="post" role="form">
+
+                            <input type="hidden" th:value="${user.id}" name="id">
+                            <div class="input-group">
+                                <label>昵称</label>
+                                <input th:value="${user.getNickName()}" type="text" name="nickName" class="form-control text-border-radius text-width-200" placeholder="昵称...">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>邮箱</label>
+                                <input th:value="${user.getEmail()}" type="email" name="email" class="form-control text-border-radius text-width-200" placeholder="邮箱...">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>头像</label>
+                                <input th:value="${user.getAvatar()}" type="text" name="avatar" class="form-control text-border-radius text-width-200" placeholder="头像地址...">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>首图</label>
+                                <input th:value="${user.getFirstPicture()}" type="text" name="firstPicture" class="form-control text-border-radius text-width-200" placeholder="首图...">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>搜索背景</label>
+                                <input th:value="${user.getSearchBg()}" type="text" name="searchBg" class="form-control text-border-radius text-width-200" placeholder="指定网址|随机|星空">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>页面标题</label>
+                                <input th:value="${user.getPagetitle()}" type="text" name="pagetitle" class="form-control text-border-radius text-width-200" placeholder="页面标题...">
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <label>巨幕标题</label>
+                                <input th:value="${user.getCardtitle()}" type="text" name="cardtitle" class="form-control text-border-radius text-width-200" placeholder="巨幕标题...">
+                            </div>
+                            <br>
+
+                            <div class="input-group">
+                                <label>介绍</label><br>
+                                <textarea th:text="${user.getDescription()}"  name="description" placeholder="个人介绍..." cols="50" rows="5"></textarea>
+                            </div>
+                            <br>
+
+                            <a href="javascript:history.back(-1)" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left"></span> 返回</a>
+                            <input type="submit" value="提交" class="btn btn-success button-width">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function showOrHideInfo(obj) {
+
+        // 取反
+        if ($(obj).text() === "显示信息") {
+            $(obj).text("隐藏信息")
+            $(obj).removeClass("btn-success")
+            $(obj).addClass("btn-info")
+
+            // 状态改为0
+            change(0)
+
+        }else {
+            $(obj).text("显示信息")
+            $(obj).addClass("btn-success")
+            $(obj).removeClass("btn-info")
+
+            // 状态改为1
+            change(1)
+        }
+    }
+
+    //修改状态
+    function change(value) {
+
+        // 禁用按钮
+        $("#showOrHideInfo").attr("disabled","disabled");
+        $.get("/admin/showorhide",{state: value},function (count) {
+
+            if(count > 0) {
+                $("#showOrHideInfo").removeAttr("disabled");
+            }
+
+        },"text")
+    }
+
+
+</script>
+
+
+
+<!--底部-->
+<div th:replace="admin/_fragments :: footer" class="container-fluid"></div>
+
+<th:block th:replace="admin/_fragments :: script">
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</th:block>
+
+</body>
+</html>

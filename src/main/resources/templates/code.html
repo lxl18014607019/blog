@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>获取源码</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" href="https://unpkg.com/autocjs@1.3.0/dist/autoc.min.css">
+</head>
+
+<style>
+    .container {
+        margin-top: 200px;
+    }
+    .code-input {
+        height: 50px;
+        width: 450px;
+        border: none;
+        border-radius: 5px 0px 0px 5px;
+        font-family: "PingFang SC";
+        font-size: 14px;
+        padding: 10px;
+        margin: 5px;
+        margin-right: 0px!important;
+        outline: none;
+    }
+
+    .btn-me-side {
+        width: 70px;
+        height: 50px;
+        font-size: 14px;
+        border: none;
+        background: white;
+        color: #7a7a7a;
+        border-radius: 0px 5px 5px 0px;
+    }
+
+    .btn-me-side:hover {
+        color: #7a7a7a;
+        background-color: white;
+    }
+
+    h3 {
+        color: #f0f4ff;
+        text-shadow: #4f4f4f 0px 0px 5px;
+    }
+
+    .ib {
+        font-size: 0px;
+        margin-bottom: 20px;
+    }
+
+    body {
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: 0px 0px;
+        padding: 0px 0px;
+        background-color: #dddddd;
+    }
+
+</style>
+
+<body>
+
+<div class="container animated fadeInUp">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>关注公众号回复“博客”获取验证码,</h3>
+            <h3>即可获取多个项目源码,个人博客、个人网盘、图床等！</h3>
+            <div class="ib">
+                <form id="code-form" action="/projects/index" method="get">
+                    <input id="code" class="code-input" type="text" placeholder="请输入验证码">
+                    <button type="button" class="btn-me-side" onclick="getResource()">提取源码</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="https://img-blog.csdnimg.cn/e145e58b508944cda210ef118ac5f9f1.jpg" target="_blank">
+                <img src="https://img-blog.csdnimg.cn/e145e58b508944cda210ef118ac5f9f1.jpg" style="height: 160px;width: 160px;">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function getResource() {
+        var code = document.getElementById("code").value;
+        if (code !== '' && code !== null) {
+            getCode(code);
+        }else {
+            document.getElementById("code").setAttribute("placeholder","验证码不能为空!");
+            document.getElementById("code").focus()
+        }
+    }
+
+    function getCode(code) {
+        if (code != '' && code != null) {
+            // $("#code-form").submit();
+            //发送ajax请求
+            $.post("/projects/code",{"code" : code},codeBack,"text");
+        } else {
+            document.getElementById("code").setAttribute("placeholder","验证码不能为空!");
+            document.getElementById("code").focus()
+        }
+    }
+
+    // code刷新函数
+    function codeBack(obj) {
+        // 如果成功
+        if (obj==="success") {
+            $("#code-form").submit();
+        }else {
+            document.getElementById("code").setAttribute("placeholder",obj);
+            document.getElementById("code").value = '';
+            document.getElementById("code").focus();
+        }
+    }
+</script>
+
+
+
+<script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+<script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+<!--<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>-->
+
+<!--<script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>-->
+<!--<script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>-->
+<!--<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>-->
+
+<script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+<script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+<script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+<script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<script src="../static/js/smoothscroll.js" th:src="@{/js/smoothscroll.js}"></script>
+<script src="../static/js/animatext.min.js" th:src="@{/js/animatext.min.js}"></script>
+<!--<script src="../static/js/ribbon.min.js" th:src="@{/js/ribbon.min.js}"></script>-->
+<script src="../static/js/APlayer.min.js" th:src="@{/js/APlayer.min.js}"></script>
+<script src="../static/js/viewer.min.js" th:src="@{/js/viewer.min.js}"></script>
+<script src="../static/js/timeline/jquery.eeyellow.Timeline.js" th:src="@{/js/timeline/jquery.eeyellow.Timeline.js}"></script>
+
+<script th:inline="javascript" type="text/javascript">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]];
+
+    //设置背景图片
+    //document.getElementById("body").style.backgroundImage="url(" + url + ")";
+    $("body").css("backgroundImage", "url('" + url + "')")
+
+</script>
+
+</body>
+</html>

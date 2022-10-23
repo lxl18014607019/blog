@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+</head>
+
+<style>
+
+    body{
+        background-color: white !important;
+        height: 100%!important;
+    }
+
+    .row{
+        margin-left:0px;
+        margin-right:0px;
+    }
+
+    .lineheight{
+        line-height: 30px;
+    }
+
+    .div-background-about{
+        width: 100%;
+        position: relative;
+        height: 100%;
+        top: 0px;
+        display: block;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        margin: 0px 0px;
+        padding: 0px 0px;
+    }
+
+    .div-img-about{
+        height: 590px;
+        background-image: url("https://img-blog.csdnimg.cn/4ec6337313964287925be9ed37594fa3.png");
+        background-attachment: fixed;
+        margin: 0px 0px;
+        padding: 0px 0px;
+        filter: brightness(75%);
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .div-img-about-2{
+        height: 590px;
+        background-image: url("https://img-blog.csdnimg.cn/256c9203868042748d656853aa9ac687.jpeg");
+        background-attachment: fixed;
+        margin: 0px 0px;
+        padding: 0px 0px;
+        filter: brightness(75%);
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+    .btn-me{
+        color: white;
+        width: 160px;
+        height: 40px;
+        border: 1px solid white;
+        outline: none;
+        transition: 0.75s;
+    }
+
+    .btn-me:hover{
+        background-color: white;
+        color: #000!important;
+        transition: 0.75s;
+    }
+
+    @media (max-width: 786px) {
+        .navbar {
+            margin-bottom: 0px;
+            position: absolute;
+        }
+    }
+
+    .me-info {
+        position: absolute;
+        top: 400px;
+    }
+
+    .div-background {
+        height: 950px!important;
+        min-height: 0px !important;
+    }
+
+    @media(max-width: 550px) {
+        .div-background {
+            height: 700px!important;
+        }
+    }
+
+    .QRcode-text {
+        display: block;
+    }
+    @media(max-width: 786px) {
+        .QRcode-text {
+            display: none;
+        }
+    }
+
+</style>
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(4)" class="navbar navbar-inverse lucency-only-box-all rounded-no animated fadeIn">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">切换</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}" ><b>Blog</b></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="overflow: visible !important;">
+            <ul class="nav navbar-nav">
+
+                <li class="active"><a><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-tag"></sapn> 分类</a></li>
+                <li><a href="#"><sapn class="glyphicon glyphicon-align-left"></sapn> 标签</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 归档</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-list"></span> 关于我</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-comment"></span> 留言板</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form navbar-left" id="searchFormId" th:action="@{/search}"  method="post" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="articletitleId" name="articletitle" placeholder="搜索文章...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="subsearchForm();">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--首图层 - 大-->
+<div class="div-background animated fadeIn  z-index-1" style="filter: brightness(80%); width: 100%; height: 100%;" id="firstPicture-container"></div>
+<div class="container-fluid me-info" style="width: 100%;">
+
+    <div class="col-md-12 z-index-2 animated fadeInDown">
+        <div class="text-center">
+            <div class="row">
+                <b><h2 class="font-FANGZHENGSHUTI color-title">关于我</h2></b>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="color-me font-FANGZHENGSHUTI">生活其实很美好</h3>
+                </div>
+            </div>
+            <br><br><br>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<!--容器-->
+<div class="container-fluid">
+    <!--介绍-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <div class="jumbotron box-color-white animated fadeIn">
+                    <div class="row text-center">
+                        <img class="img-size-xs img-circle text-border" th:src="${user.avatar}" src="https://img-blog.csdnimg.cn/20200818112727605.jpg">
+                        <div class="row">
+                            <h2 class="font-FANGZHENGSHUTI">Renyi</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="color-about font-size-md font-HUAWENXINWEI" th:text="${user.description}">一个热爱编程的阳光少年,也是一个终身学习者,希望能够汲取更多的知识，充实自己的生活，希望能在编程的道路上越走越远！</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--阅读博客-->
+    <div class="row">
+        <div class="text-center div-img-about">
+            <button class="btn-me lucency-only-box-all text-color-white" onclick="gotohome();"  style="margin-top: 250px!important;">阅读博客</button>
+            <!-- onclick="gotoDisk();"-->
+            <button class="btn-me lucency-only-box-all text-color-white" style="margin-top: 250px!important;">好好学习</button>
+
+        </div>
+    </div>
+
+    <!--博客搭建介绍-->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="height: 580px; margin-top: 50px;">
+            <div class="text-center">
+                <h2 class="font-HEITI" style="color: #008abf;">加入QQ群 , 一起学习</h2>
+
+                <div class="row" style="margin-top: 60px">
+                    <div class="col-md-5">
+                        <img src="https://img-blog.csdnimg.cn/03a73ce918e745188bed3df7466810f5.png" style="height: 100%; width: 100%;">
+                    </div>
+                    <div class="col-md-7">
+                        <p class="text-center QRcode-text" style="margin-top: 50px; font-size: 24px; text-align: left; text-indent: 2em;">
+                            如果你是编程爱好者 , 如果你不能一个人坚持学习 , 可以选择加入我们 , 一起学习 , 一起进步!!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--阅读博客-->
+    <div class="row">
+        <div class="text-center div-img-about-2">
+
+
+        </div>
+    </div>
+
+    <!--博客搭建介绍-->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" style="height: 200px; margin-top: 50px;">
+            <div class="text-center">
+                <h2 class="font-HEITI">博客的搭建</h2>
+                <p class="text-center font-size-sm" style="line-height: 25px">
+                    在2020年的暑假期间,因为疫情的影响,宅家很久,于是想整合自己以前学过的知识,将其结合起来做一个项目,再三思考下,在做完一个网盘项目后决定再搭建一个个人博客项目,这是我很早以前就有的想法,奈何之前能力不足无法开发,但是经过很长一段时间的学习,也具备了这样的能力,于是2020年8月10日正式开始开发,历时7天开发完成,后来又修修补补的改动了一些地方,最后再部署到服务器,期间遇到了很多困难,但是也一一克服了,最后看到成果还是很有成就感的,我也将会继续把这个项目维护下去...
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<br>
+<br>
+
+<!--底部-->
+<div th:replace="_fragments :: footer" class="container-fluid"></div>
+
+<th:block>
+    <script src="../static/js/jq.js" th:src="@{/js/jq.js}"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <!--<script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>-->
+
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <script src="../static/js/smoothscroll.js" th:src="@{/js/smoothscroll.js}"></script>
+    <script src="../static/js/animatext.min.js" th:src="@{/js/animatext.min.js}"></script>
+    <!--<script src="../static/js/ribbon.min.js" th:src="@{/js/ribbon.min.js}"></script>-->
+    <script src="../static/js/APlayer.min.js" th:src="@{/js/APlayer.min.js}"></script>
+    <script src="../static/js/viewer.min.js" th:src="@{/js/viewer.min.js}"></script>
+    <script src="../static/js/timeline/jquery.eeyellow.Timeline.js" th:src="@{/js/timeline/jquery.eeyellow.Timeline.js}"></script>
+    <!--<script src="../static/js/ribbon.min.js" th:src="@{/js/ribbon.min.js}"></script>-->
+    <!--    <script type="text/javascript" color="0,205,205" opacity='0.9' zIndex="-2" count="99" pointcolor="0,0,255" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>-->
+
+
+    <!--网站运行时间-->
+    <!--<script>
+        var now = new Date();
+
+        function createtime() {
+            var grt = new Date("08/06/2020 00:00:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+            now.setTime(now.getTime() + 250);
+            days = (now - grt) / 1000 / 60 / 60 / 24;
+            dnum = Math.floor(days);
+            hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+            hnum = Math.floor(hours);
+            if (String(hnum).length == 1) {
+                hnum = "0" + hnum;
+            }
+            minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes);
+            if (String(mnum).length == 1) {
+                mnum = "0" + mnum;
+            }
+            seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds);
+            if (String(snum).length == 1) {
+                snum = "0" + snum;
+            }
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+
+        setInterval("createtime()", 250);
+    </script>-->
+</th:block>
+
+
+<script th:inline="javascript" type="text/javascript">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]]
+    //设置背景图片
+    document.getElementById("firstPicture-container").style.backgroundImage="url(" + url + ")";
+
+
+</script>
+
+<script>
+
+    function gotohome(){
+        window.location = "/";
+    }
+
+    function gotoDisk(){
+        window.open("http://101.201.180.181:8080/","_blank");
+    }
+
+    /*平滑滚动*/
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+    });
+</script>
+
+<script>
+
+    function subsearchForm() {
+        //拿到搜索文本框内容
+        var articleobject = $("#articletitleId");
+        if (articleobject.val() == "" || articleobject.val() == null){
+            articleobject.prop("placeholder","搜索内容不能为空!");
+            articleobject.focus();
+        }else{
+            //提交表单
+            $("#searchFormId").submit();
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+
+<body>
+
+<!--首图-大-->
+
+<script th:inline="javascript" type="text/javascript" th:fragment="firstPicture">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]]
+    //设置背景图片
+    document.getElementById("firstPicture-container").style.backgroundImage="url(" + url + ")";
+
+
+</script>
+
+<!------------------------------>
+
+<!--首图-小-->
+<script th:inline="javascript" type="text/javascript" th:fragment="firstPicture-small">
+
+    //获取user中的首图
+    var url = [[${user.firstPicture}]]
+    //设置背景图片
+    document.getElementById("firstPicture-container-small").style.backgroundImage="url(" + url + ")";
+
+
+</script>
+
+
+
+</body>
+</html>
