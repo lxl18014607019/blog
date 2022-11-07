@@ -323,10 +323,10 @@ public class AdminBlogController {
      * 修改 Sort
      */
     @PostMapping("/blog/updateSort")
-    public String updateSort(@RequestParam Integer id,@RequestParam Integer sort, Model model){
+    public String updateSort(@RequestParam String id,@RequestParam Integer sort, Model model){
 
         // 修改Sort
-        int count = blogService.modifySortById(id,sort);
+        int count = blogService.modifySortById(Long.valueOf(id),sort);
 
         model.addAttribute("blogs",getBlogs());
 

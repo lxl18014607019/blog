@@ -50,7 +50,8 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         Page<Blog> page = new Page<>(start,number);
         queryWrapper.ne("recycle", "1");
-        return blogMapper.selectPage(page,queryWrapper).getRecords();
+        queryWrapper.orderByDesc("sort","create_time","id");
+        return setTypeByTypeId(blogMapper.selectPage(page,queryWrapper).getRecords());
     }
 
 
@@ -67,10 +68,6 @@ public class BlogMapperImpl {
                 !i.getColumn().equals("sort") &&
                 !i.getColumn().equals("password"));
         return blogMapper.selectList(queryWrapper);
-    }
-
-    public List<Type> selectType(){
-        return typeMapper.selectList(null);
     }
 
 
@@ -119,11 +116,7 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("recycle", 1);
         queryWrapper.eq("type_id", typeId);
-        List<Blog> blogs = blogMapper.selectPage(page, queryWrapper).getRecords();
-        for(Blog blog:blogs){
-            blog.setType(typeMapper.selectById(typeId));
-        }
-        return blogs;
+        return setTypeByTypeId(blogMapper.selectPage(page, queryWrapper).getRecords());
 
     }
 
@@ -137,10 +130,7 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("recycle", 1);
         queryWrapper.eq("type_id", typeId);
-        List<Blog> blogs = blogMapper.selectList(queryWrapper);
-        for(Blog blog:blogs){
-            blog.setType(typeMapper.selectById(typeId));
-        }
+        List<Blog> blogs = setTypeByTypeId(blogMapper.selectList(queryWrapper));
         return blogs;
 
     }
@@ -168,14 +158,14 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type_id", typeId);
         queryWrapper.select("id");
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
     }
 
     public List<Blog> selectBlogByRecommend(String recommend){
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("recommend", recommend);
         queryWrapper.ne("recycle", 1);
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
     }
 
     public int selectBlogCount(){
@@ -189,7 +179,7 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("recycle", 1);
         queryWrapper.orderByDesc("create_time");
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
     }
 
     public List<Blog> selectBlogOrderByCreateTimeLimit(int range){
@@ -197,49 +187,45 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("recycle", 1);
         queryWrapper.orderByDesc("create_time");
-        return blogMapper.selectPage(page,queryWrapper).getRecords();
+        return setTypeByTypeId(blogMapper.selectPage(page,queryWrapper).getRecords());
     }
 
 //增加view
     public int addView(Long id){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
-        Blog blog = new Blog();
-        blog.setId(id);
+        updateWrapper.eq("id", id);
         updateWrapper.setSql("view = view +1");
-        return blogMapper.update(blog,updateWrapper);
+        return blogMapper.update(null,updateWrapper);
     }
 
     //增加admire
     public int addAdmire(Long id){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
-        Blog blog = new Blog();
-        blog.setId(id);
+        updateWrapper.eq("id", id);
         updateWrapper.setSql("admire = admire +1");
-        return blogMapper.update(blog,updateWrapper);
+        return blogMapper.update(null,updateWrapper);
     }
 
     //修改存在状态
     public int updateDeleteStateById(Long id){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<Blog>();
-        Blog blog = new Blog();
-        blog.setId(id);
+        updateWrapper.eq("id", id);
         updateWrapper.set(true,"recycle", 1);
-        return blogMapper.update(blog,updateWrapper);
+        return blogMapper.update(null,updateWrapper);
     }
 
     public int updateRecoverStateById(Long id){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
-        Blog blog = new Blog();
-        blog.setId(id);
+        updateWrapper.eq("id",id);
         updateWrapper.set(true,"recycle", 0);
-        return blogMapper.update(blog,updateWrapper);
+        return blogMapper.update(null,updateWrapper);
     }
 
     //查询出在回收站的博客
     public List<Blog> selectBlogByRecycle(){
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("recycle", 1);
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
     }
 
 //    批量删除
@@ -255,7 +241,7 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.ne("recycle", 1).eq("record_life", 1);
         queryWrapper.orderByDesc("create_time");
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
 
     }
 
@@ -275,7 +261,7 @@ public class BlogMapperImpl {
         if(realSearchRecommend!=null){
             queryWrapper.eq("real_search_recommend", realSearchRecommend);
         }
-        return blogMapper.selectList(queryWrapper);
+        return setTypeByTypeId(blogMapper.selectList(queryWrapper));
     }
 
 //    查询源文本内容
@@ -283,7 +269,8 @@ public class BlogMapperImpl {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         queryWrapper.select("content");
-        List<Blog> blogs = blogMapper.selectList(queryWrapper);
+        List<Blog> blogs = setTypeByTypeId(blogMapper.selectList(queryWrapper));
+        
         if(blogs.size()>0){
             return blogs.get(0).getContent();
         }else {
@@ -302,7 +289,7 @@ public class BlogMapperImpl {
     public int updateSortById(Long id,int sort){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
         Blog blog=new Blog();
-        blog.setId(id);
+        updateWrapper.eq("id", id);
         blog.setSort(sort);
         return blogMapper.update(blog,updateWrapper);
     }
@@ -313,7 +300,7 @@ public class BlogMapperImpl {
         queryWrapper.select("id","sort","title");
         queryWrapper.ne("recycle",1);
         queryWrapper.orderByDesc("sort","create_time");
-        return blogMapper.selectPage(page, queryWrapper).getRecords();
+        return setTypeByTypeId(blogMapper.selectPage(page, queryWrapper).getRecords());
     }
 //    查询文章是否加密
     public boolean selectBlogisEncrypted(Long id){
@@ -322,7 +309,7 @@ public class BlogMapperImpl {
         queryWrapper.isNotNull("password");
         queryWrapper.eq("id",id);
 
-        List<Blog> blogs = blogMapper.selectList(queryWrapper);
+        List<Blog> blogs = setTypeByTypeId(blogMapper.selectList(queryWrapper));
         if(blogs.size()>0){
             Blog blog = blogs.get(0);
             return blog.getPassword() != null && !blog.getPassword().equals("");
@@ -374,16 +361,23 @@ public class BlogMapperImpl {
     public int updateBlogPasswordByBlogId(Long blogId,String password){
         UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
         Blog blog = new Blog();
-        blog.setId(blogId);
-        updateWrapper.set(true, "password", password);
+        blog.setPassword(password);
+        updateWrapper.eq("id", blogId);
         return blogMapper.update(blog,updateWrapper);
     }
 
 
 
-//    public List<Blog> selectBlogBySql(String sql) {
-//
-//    }
+        public List<Blog> setTypeByTypeId(List<Blog> list) {
+            for(Blog blog:list){
+                blog.setType(typeMapper.selectById(blog.getTypeId()));
+            }
+            return list;
+        }
+        
+        
+        
+        
 }
 
 

@@ -128,7 +128,7 @@
                                         <td th:text="${blog.getTitle()}">Java语言的优点</td>
                                         <td  th:text="${blog.getType().name}">Java</td>
                                         <td th:text="${blog.getRecommend()} ? '是' : '否'">是</td>
-                                        <td th:text="${blog.getUpdatetime()}">2020-07-25</td>
+                                        <td th:text="${blog.getUpdateTime()}">2020-07-25</td>
                                         <td>
                                             <a th:href="@{/admin/recoverblog/{id}(id=${blog.getId()})}"
                                                href="javascript:0" class="btn btn-primary btn-sm margin-right-sm">

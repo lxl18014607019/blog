@@ -350,7 +350,7 @@ public class BlogServiceImp implements BlogService {
     }
 
     @Override
-    public int modifySortById(Integer id,Integer sort) {
+    public int modifySortById(Long id,Integer sort) {
 
         return blogDao.updateSortById(id.longValue(),sort);
     }

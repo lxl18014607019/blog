@@ -65,7 +65,7 @@ public interface BlogService {
 
     String queryBlogOriginalContent(Integer id);
 
-    int modifySortById(Integer id,Integer sort);
+    int modifySortById(Long id,Integer sort);
 
     List<Blog> queryAllBlogOnlySort(Pager pager);
 

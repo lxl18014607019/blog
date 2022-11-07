@@ -123,13 +123,13 @@
                 <div class="jumbotron box-color-white lucency-sm">
                     <div class="row">
                         <div class="col-md-2 text-center">
-                            <img class="img-size-xs img-rounded mouseEnter-scale" th:src="${url.imgurl}" src="https://img-blog.csdnimg.cn/20200823113714486.jpg">
+                            <img class="img-size-xs img-rounded mouseEnter-scale" th:src="${url.imgUrl}" src="https://img-blog.csdnimg.cn/20200823113714486.jpg">
                         </div>
                         <div class="col-md-7 margin-top-bg text-center">
-                            <h4 class="text-color-teal"><a target="_blank" th:href="${url.imgurl}" href="https://img-blog.csdnimg.cn/20200823113714486.jpg"><span th:text="${url.imgurl}">https://img-blog.csdnimg.cn/20200823113714486.jpg</span></a></h4>
+                            <h4 class="text-color-teal"><a target="_blank" th:href="${url.imgUrl}" href="https://img-blog.csdnimg.cn/20200823113714486.jpg"><span th:text="${url.imgUrl}">https://img-blog.csdnimg.cn/20200823113714486.jpg</span></a></h4>
                         </div>
                         <div class="col-md-3 margin-top-bg text-center">
-                            <button id="useBtn" onclick="useUrl(this);" th:href="@{/admin/useurl}" th:attr="data-url=${url.imgurl}" class="btn btn-warning">使用</button>
+                            <button id="useBtn" onclick="useUrl(this);" th:href="@{/admin/useurl}" th:attr="data-url=${url.imgUrl}" class="btn btn-warning">使用</button>
                             <button class="btn btn-danger" onclick="deleteurl(this);" th:attr="data-urlid=${url.id}">删除</button>
                         </div>
                     </div>
